@@ -1,0 +1,131 @@
+/* ============== 浮动提示（Toast） ============== */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+#toast-container {
+  position: fixed;
+  top: 88px;
+  right: var(--sp-5);
+  width: 320px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  pointer-events: none;
+  font-family: var(--font-serif);
+}
+
+.toast {
+  pointer-events: auto;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  animation: toast-slide-in 0.3s ease-out;
+  box-shadow: var(--shadow-2), 0 0 18px rgba(0, 0, 0, 0.5);
+  font-size: var(--text-sm);
+  color: var(--paper-0);
+  max-height: 80px;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--line-2);
+  background: var(--glass-3);
+}
+
+.toast.removing {
+  animation: toast-slide-out 0.3s ease-out forwards;
+}
+
+.toast.toast-clickable {
+  cursor: pointer;
+  transition: transform var(--t-fast);
+}
+
+.toast.toast-clickable:hover {
+  transform: translateX(-2px);
+}
+
+.toast-icon {
+  font-size: var(--text-md);
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+  font-family: var(--font-deco);
+}
+
+.toast-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.toast-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  margin-bottom: 2px;
+  color: var(--gold-1);
+}
+
+.toast-message {
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 类型变体 —— 沿用水墨仙侠色系 */
+.toast-success {
+  border-left: 3px solid var(--jade);
+  background: linear-gradient(135deg, rgba(20, 30, 24, 0.92), var(--glass-3));
+}
+.toast-success .toast-icon { color: var(--jade); }
+
+.toast-error {
+  border-left: 3px solid var(--crimson);
+  background: linear-gradient(135deg, rgba(32, 18, 20, 0.92), var(--glass-3));
+}
+.toast-error .toast-icon { color: var(--crimson); }
+
+.toast-warning {
+  border-left: 3px solid var(--gold-2);
+  background: linear-gradient(135deg, rgba(32, 26, 14, 0.92), var(--glass-3));
+}
+.toast-warning .toast-icon { color: var(--gold-2); }
+
+.toast-info {
+  border-left: 3px solid var(--azure);
+  background: linear-gradient(135deg, rgba(18, 26, 32, 0.92), var(--glass-3));
+}
+.toast-info .toast-icon { color: var(--azure); }
+
+.toast-achievement {
+  border: 1px solid var(--gold-2);
+  border-left: 3px solid var(--gold-1);
+  background: linear-gradient(135deg, rgba(40, 30, 12, 0.94), var(--glass-3));
+  box-shadow: var(--shadow-2), 0 0 22px rgba(212, 168, 88, 0.22);
+}
+.toast-achievement .toast-icon {
+  color: var(--gold-1);
+  animation: achievement-pulse 1s ease-in-out infinite;
+}
+.toast-achievement .toast-title {
+  color: var(--gold-1);
+  letter-spacing: 0.3em;
+}
+
+@keyframes toast-slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toast-slide-out {
+  from { transform: translateX(0); opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes achievement-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.2); }
+}

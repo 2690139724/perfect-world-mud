@@ -1,0 +1,39 @@
+/* ============== 整体布局 ============== */
+
+.game-screen,
+.menu-screen,
+.creation-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.menu-screen,
+.creation-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+}
+
+.game-screen {
+  display: grid;
+  grid-template-rows: var(--topbar-h) 1fr var(--actionbar-h);
+  height: 100%;
+}
+
+/* 响应式 */
+@media (max-width: 1024px) {
+  :root {
+    --topbar-h: 64px;
+    --actionbar-h: 60px;
+    --col-w: 240px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --topbar-h: 56px;
+    --actionbar-h: 64px;
+  }
+}

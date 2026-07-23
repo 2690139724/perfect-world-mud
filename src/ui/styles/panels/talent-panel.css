@@ -1,0 +1,235 @@
+/* ============== 天赋面板 ============== */
+.talent-effects {
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(180, 140, 40, 0.08);
+  border: 1px solid rgba(180, 140, 40, 0.2);
+  border-radius: var(--r-2);
+}
+
+.talent-effects-title {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-deco);
+}
+
+.talent-effects-list {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  line-height: 1.8;
+}
+
+.talent-section {
+  margin-bottom: var(--sp-3);
+}
+
+.talent-section-title {
+  font-size: var(--text-sm);
+  color: var(--gold-1);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--sp-2);
+  padding-bottom: var(--sp-1);
+  border-bottom: 1px dashed var(--line-1);
+}
+
+.talent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--sp-2);
+}
+
+.talent-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-2);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  transition: all var(--t-fast);
+  position: relative;
+}
+
+.talent-card:hover {
+  border-color: var(--gold-4);
+  background: rgba(180, 140, 40, 0.08);
+}
+
+.talent-card.disabled {
+  opacity: 0.5;
+}
+
+.talent-icon {
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+}
+
+.talent-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.talent-name {
+  font-size: var(--text-sm);
+  color: var(--paper-0);
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.talent-awakenable {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  margin-left: var(--sp-1);
+}
+
+.talent-type {
+  font-size: var(--text-xs);
+  color: var(--gold-3);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--sp-1);
+}
+
+.talent-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+  line-height: 1.6;
+  margin-bottom: var(--sp-1);
+}
+
+.talent-condition {
+  font-size: var(--text-xs);
+  color: var(--paper-4);
+  line-height: 1.4;
+  padding-top: var(--sp-1);
+  border-top: 1px dashed var(--line-1);
+}
+
+.talent-stealable {
+  display: inline-block;
+  font-size: var(--text-xs);
+  color: var(--crimson);
+  padding: 1px var(--sp-1);
+  border: 1px solid var(--crimson);
+  border-radius: var(--r-1);
+  margin-left: var(--sp-1);
+  letter-spacing: 0.1em;
+}
+
+.modal-empty {
+  font-size: var(--text-sm);
+  color: var(--paper-4);
+  text-align: center;
+  padding: var(--sp-3) 0;
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+}
+
+.modal-btn {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-2);
+  background: transparent;
+  color: var(--paper-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+}
+
+.modal-btn:hover {
+  border-color: var(--gold-3);
+  color: var(--gold-2);
+}
+
+.modal-btn-primary {
+  background: rgba(180, 140, 40, 0.15);
+  border-color: var(--gold-3);
+  color: var(--gold-2);
+}
+
+.modal-btn-primary:hover {
+  background: rgba(180, 140, 40, 0.25);
+  border-color: var(--gold-2);
+}
+
+.talent-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.talent-section-title-physique {
+  color: #c084fc !important;
+  border-bottom-color: rgba(192, 132, 252, 0.3) !important;
+}
+
+.talent-origin {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+  padding: var(--sp-1) var(--sp-2);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--r-1);
+  margin-bottom: var(--sp-1);
+  font-style: italic;
+}
+
+.talent-story-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: var(--text-xs);
+  background: linear-gradient(135deg, #b45309, #d97706);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-1);
+  cursor: pointer;
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+  transition: all var(--t-fast);
+  margin-top: 4px;
+}
+
+.talent-story-btn:hover {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.4);
+}
+
+.talent-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.talent-rarity {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.talent-unawakened {
+  display: inline-block;
+  font-size: var(--text-xs);
+  color: var(--crimson);
+  padding: 1px var(--sp-1);
+  border: 1px solid var(--crimson);
+  border-radius: var(--r-1);
+  margin-top: 4px;
+  letter-spacing: 0.1em;
+}
+
+.talent-effect-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  margin: 2px 4px 2px 0;
+  background: rgba(180, 140, 40, 0.12);
+  border: 1px solid rgba(180, 140, 40, 0.25);
+  border-radius: 999px;
+  color: var(--paper-1);
+}

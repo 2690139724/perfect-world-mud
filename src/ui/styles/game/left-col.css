@@ -1,0 +1,131 @@
+/* ============== 左栏 ============== */
+.location-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--paper-0);
+  letter-spacing: 0.25em;
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px dashed var(--line-2);
+}
+
+.location-desc {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  line-height: 2;
+  text-indent: 2em;
+  letter-spacing: 0.05em;
+}
+
+.zone-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-base);
+  color: var(--paper-1);
+  letter-spacing: 0.2em;
+}
+
+/* ============== 可交谈：固定高度滑动 ============== */
+.card-npc {
+  flex-shrink: 0;
+}
+
+.card-npc-body {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: var(--sp-2);
+}
+
+.card-npc-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-npc-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.card-npc-body::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 2px;
+}
+
+.card-npc-body::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-3);
+}
+
+/* ============== NPC 列表 ============== */
+.npc-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.npc-empty {
+  font-size: var(--text-sm);
+  color: var(--paper-4);
+  text-align: center;
+  padding: var(--sp-4) 0;
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+}
+
+.npc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  text-align: left;
+  font-family: var(--font-serif);
+  width: 100%;
+}
+
+.npc-item:hover {
+  background: var(--gold-soft);
+  border-color: var(--line-2);
+}
+
+.npc-item-mark {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-2);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--gold-2);
+}
+
+.npc-item-title {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  letter-spacing: 0.1em;
+  margin-right: var(--sp-1);
+}
+
+.npc-item-name {
+  font-size: var(--text-base);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+}
+
+.npc-item-more {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  padding: var(--sp-3);
+  text-align: center;
+  cursor: pointer;
+  border-top: 1px dashed var(--line-1);
+  margin-top: var(--sp-2);
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+  transition: all var(--t-fast);
+}
+
+.npc-item-more:hover {
+  color: var(--gold-2);
+  background: rgba(212, 168, 88, 0.08);
+}

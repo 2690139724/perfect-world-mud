@@ -1,0 +1,334 @@
+/* ============== 功能弹窗 ============== */
+.feature-window-mask,
+.feature-window-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1499;
+  animation: fade-in-soft 0.25s ease;
+}
+
+.feature-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(560px, 80vw, 880px);
+  max-height: clamp(420px, 75vh, 720px);
+  background: var(--glass-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+  z-index: 1500;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: scale-in 0.3s ease;
+}
+
+.feature-window::before,
+.feature-window::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--gold-2);
+  pointer-events: none;
+}
+
+.feature-window::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+}
+
+.feature-window::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+}
+
+.feature-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-4) var(--sp-5);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.feature-window-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--paper-0);
+  letter-spacing: 0.3em;
+  font-weight: normal;
+}
+
+.feature-window-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-md);
+  color: var(--paper-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-1);
+  transition: all var(--t-fast);
+}
+
+.feature-window-close:hover {
+  color: var(--crimson);
+  border-color: var(--crimson-soft);
+  background: var(--crimson-soft);
+}
+
+.feature-window-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-5);
+  user-select: text;
+}
+
+/* ============== 功法面板 ============== */
+.method-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.method-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+  margin-bottom: var(--sp-3);
+}
+
+.method-card {
+  background: linear-gradient(135deg, rgba(20, 16, 12, 0.6) 0%, rgba(30, 22, 14, 0.4) 100%);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-3);
+  padding: var(--sp-4);
+}
+
+.method-card.current {
+  border-color: var(--gold-2);
+  box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+.method-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.method-grade-badge {
+  font-size: var(--text-xs);
+  padding: 2px 8px;
+  border-radius: var(--r-1);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.grade-yellow { background: rgba(139, 90, 43, 0.3); color: #c9a96e; border: 1px solid rgba(139, 90, 43, 0.5); }
+.grade-xuan   { background: rgba(70, 130, 180, 0.2); color: #7eb8da; border: 1px solid rgba(70, 130, 180, 0.4); }
+.grade-di     { background: rgba(34, 139, 34, 0.2); color: #7bc97b; border: 1px solid rgba(34, 139, 34, 0.4); }
+.grade-tian   { background: rgba(147, 112, 219, 0.2); color: #b8a0e0; border: 1px solid rgba(147, 112, 219, 0.4); }
+.grade-zhizun { background: rgba(220, 20, 60, 0.15); color: #e08080; border: 1px solid rgba(220, 20, 60, 0.3); }
+.grade-xian   { background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1)); color: #f0d878; border: 1px solid rgba(255, 215, 0, 0.4); }
+.grade-default { background: rgba(100, 100, 100, 0.2); color: var(--paper-3); border: 1px solid var(--line-1); }
+
+.method-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--paper-0);
+}
+
+.method-desc {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  line-height: 1.7;
+  margin-bottom: var(--sp-3);
+}
+
+.method-proficiency {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.method-proficiency .progress-bar-bg {
+  flex: 1;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.method-proficiency .progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-1));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.method-proficiency span {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  white-space: nowrap;
+}
+
+.method-meta {
+  display: flex;
+  gap: var(--sp-4);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  margin-bottom: var(--sp-3);
+}
+
+.method-evolve-hint {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  font-style: italic;
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(212, 175, 55, 0.05);
+  border-left: 2px solid var(--gold-3);
+  border-radius: 0 var(--r-1) var(--r-1) 0;
+  margin-bottom: var(--sp-3);
+}
+
+.method-effects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.method-effect-tag {
+  font-size: var(--text-xs);
+  padding: 2px 8px;
+  background: rgba(100, 100, 100, 0.15);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  color: var(--paper-2);
+}
+
+.method-acquire-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--r-2);
+}
+
+.method-acquire-info .acquire-label {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  letter-spacing: 0.1em;
+}
+
+.method-acquire-info .acquire-detail {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+}
+
+/* 已习得功法列表 */
+.method-known-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.method-known-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(20, 16, 12, 0.4);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.method-known-item:hover {
+  border-color: var(--gold-3);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.method-known-name {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.method-known-bonus {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+}
+
+/* 可获取功法列表 */
+.method-unknown-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.method-unknown-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(20, 16, 12, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  opacity: 0.8;
+}
+
+.method-unknown-item .method-unknown-name {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+}
+
+.method-unknown-item .method-unknown-source {
+  font-size: var(--text-xs);
+  color: var(--gold-3);
+}
+
+.method-unknown-item .method-unknown-detail {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.5;
+}
+
+.method-exchange-btn {
+  align-self: flex-start;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.method-exchange-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-2);
+}
+
+.method-exchange-btn.disabled {
+  color: var(--paper-3);
+  background: rgba(20, 16, 12, 0.3);
+  border-color: var(--line-1);
+  cursor: not-allowed;
+}

@@ -1,0 +1,1362 @@
+/* ============== 通用功能面板样式 ============== */
+
+/* ---- 面板头部 ---- */
+.panel-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line-1);
+  margin-bottom: var(--sp-4);
+}
+
+/* ---- 统计网格 ---- */
+.panel-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.panel-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.panel-stat-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  letter-spacing: 0.1em;
+}
+
+.panel-stat-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--gold-1);
+}
+
+/* ---- 分区标题 ---- */
+.panel-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  margin: var(--sp-4) 0 var(--sp-3);
+  padding-left: var(--sp-2);
+  border-left: 2px solid var(--gold-3);
+}
+
+/* ---- 卡片列表 ---- */
+.panel-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.panel-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  transition: all var(--t-fast);
+}
+
+.panel-card:hover {
+  border-color: var(--line-2);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.panel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.panel-card-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+}
+
+.panel-card-tag {
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: var(--r-1);
+  background: rgba(100, 100, 100, 0.15);
+  color: var(--paper-3);
+}
+
+.panel-card-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+  margin-bottom: var(--sp-2);
+}
+
+.panel-card-meta {
+  display: flex;
+  gap: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--paper-4);
+}
+
+/* ---- 操作按钮 ---- */
+.panel-actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line-1);
+}
+
+.panel-btn {
+  padding: var(--sp-2) var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.panel-btn:hover {
+  border-color: var(--gold-3);
+  color: var(--gold-1);
+  background: var(--gold-soft);
+}
+
+.panel-btn.is-primary {
+  background: var(--gold-soft);
+  border-color: var(--gold-2);
+  color: var(--gold-1);
+}
+
+/* ---- 表格/列表 ---- */
+.panel-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.panel-table-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+}
+
+.panel-table-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ---- 标签云 ---- */
+.panel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.panel-tag {
+  padding: 2px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+}
+
+/* ---- 进度条 ---- */
+.panel-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.panel-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.panel-progress-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-1));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.panel-progress-text {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  white-space: nowrap;
+  font-family: var(--font-deco);
+}
+
+/* ---- 空状态 ---- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-8);
+  color: var(--paper-4);
+  font-size: var(--text-sm);
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+  gap: var(--sp-2);
+}
+
+.empty-state-icon {
+  font-size: var(--text-xl);
+  color: var(--paper-5);
+  opacity: 0.5;
+}
+
+/* ============== 状态面板 ============== */
+.status-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.status-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.status-attrs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+
+.status-attr {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--r-1);
+  font-size: var(--text-sm);
+}
+
+.status-attr-label {
+  color: var(--paper-3);
+}
+
+.status-attr-value {
+  color: var(--gold-1);
+  font-family: var(--font-deco);
+}
+
+/* ============== 任务面板 ============== */
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.task-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-2);
+}
+
+.task-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.task-card.is-completed {
+  border-color: var(--jade);
+  opacity: 0.7;
+}
+
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.task-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.task-status {
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: var(--r-1);
+}
+
+.task-status.is-active { background: rgba(212, 168, 88, 0.15); color: var(--gold-1); }
+.task-status.is-completed { background: rgba(80, 180, 140, 0.15); color: var(--jade); }
+
+.task-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+  margin-bottom: var(--sp-2);
+}
+
+.task-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.task-reward {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  margin-top: var(--sp-2);
+}
+
+/* ============== 商店面板 ============== */
+.shop-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.shop-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.shop-gold {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  text-align: right;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+
+.shop-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  transition: all var(--t-fast);
+}
+
+.shop-item:hover {
+  border-color: var(--gold-3);
+  background: var(--gold-soft);
+}
+
+.shop-item-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.shop-item-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.5;
+}
+
+.shop-item-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-1);
+}
+
+.shop-item-cost {
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  font-family: var(--font-deco);
+}
+
+.shop-buy-btn {
+  padding: 2px 10px;
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.shop-buy-btn:hover {
+  background: rgba(212, 168, 88, 0.2);
+}
+
+/* ============== 地图面板 ============== */
+.map-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.map-current {
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.map-current-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-1);
+  margin-bottom: var(--sp-1);
+}
+
+.map-current-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+}
+
+.map-exits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.map-exit-btn {
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  color: var(--paper-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.map-exit-btn:hover {
+  border-color: var(--gold-3);
+  color: var(--gold-1);
+  background: var(--gold-soft);
+}
+
+/* ============== 炼丹面板 ============== */
+.craft-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.craft-rank-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-2);
+}
+
+.craft-rank-row {
+  display: grid;
+  grid-template-columns: 80px 100px 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-1) 0;
+}
+
+.craft-rank-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.craft-rank-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-1);
+}
+
+.craft-rank-exp {
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+}
+
+.craft-rank-btn {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.craft-rank-btn:hover {
+  background: rgba(212, 168, 88, 0.25);
+}
+
+.craft-learned {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2);
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+}
+
+.craft-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.formation-rank-box {
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-2);
+  margin-bottom: var(--sp-3);
+}
+
+.formation-rank-row {
+  display: grid;
+  grid-template-columns: 100px 120px 1fr auto;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.formation-rank-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.formation-rank-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-1);
+}
+
+.formation-rank-exp {
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+}
+
+.formation-rank-desc {
+  margin-top: var(--sp-2);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+}
+
+.formation-rank-info {
+  margin-top: var(--sp-1);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.craft-recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.craft-recipe {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  transition: all var(--t-fast);
+}
+
+.craft-recipe:hover {
+  border-color: var(--gold-3);
+}
+
+.craft-recipe-name {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.craft-recipe-materials {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.craft-recipe-btn {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.craft-recipe-btn:hover {
+  background: rgba(212, 168, 88, 0.2);
+}
+
+/* ============== 洞府面板 ============== */
+.cave-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.cave-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.cave-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
+.cave-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.cave-stat-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.cave-stat-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--gold-1);
+}
+
+.cave-actions {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.cave-action-btn {
+  padding: var(--sp-2) var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.cave-action-btn:hover {
+  border-color: var(--gold-3);
+  color: var(--gold-1);
+  background: var(--gold-soft);
+}
+
+/* ============== 坐骑面板 ============== */
+.mount-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.mount-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.mount-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.mount-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.mount-icon {
+  font-size: var(--text-xl);
+  color: var(--gold-2);
+}
+
+.mount-info {
+  flex: 1;
+}
+
+.mount-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.mount-speed,
+.mount-tier {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.mount-action-btn {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.mount-action-btn:hover {
+  background: rgba(212, 168, 88, 0.2);
+}
+
+/* ============== 阵法面板 ============== */
+.formation-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.formation-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.formation-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.formation-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.formation-stat-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.formation-stat-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--gold-1);
+}
+
+.formation-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.formation-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.formation-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  margin-bottom: var(--sp-1);
+}
+
+.formation-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.5;
+  margin-bottom: var(--sp-2);
+}
+
+.formation-level {
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+}
+
+.formation-action-btn {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.formation-action-btn:hover {
+  background: rgba(212, 168, 88, 0.2);
+}
+
+/* ============== 拍卖行面板 ============== */
+.auction-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.auction-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.auction-tabs {
+  display: flex;
+  gap: var(--sp-1);
+  border-bottom: 1px solid var(--line-1);
+  padding-bottom: var(--sp-2);
+}
+
+.auction-tab {
+  padding: var(--sp-2) var(--sp-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-1);
+  color: var(--paper-3);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.auction-tab:hover {
+  color: var(--paper-1);
+}
+
+.auction-tab.active {
+  color: var(--gold-1);
+  background: var(--gold-soft);
+  border-color: var(--gold-3);
+}
+
+.auction-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-2);
+}
+
+/* ============== 道侣面板 ============== */
+.companion-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.companion-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+}
+
+.companion-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.companion-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  position: relative;
+  transition: all var(--t-fast);
+}
+
+.companion-card:hover {
+  border-color: var(--line-2);
+}
+
+.companion-card.companion-current {
+  border-color: var(--gold-3);
+  background: var(--gold-soft);
+}
+
+.companion-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.companion-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+}
+
+.companion-type {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.companion-rel {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  margin-bottom: var(--sp-2);
+}
+
+.companion-affinity {
+  margin-bottom: var(--sp-2);
+}
+
+.companion-affinity-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  margin-bottom: 2px;
+}
+
+.companion-affinity-bar {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.companion-affinity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crimson), var(--gold-1));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.companion-affinity-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: var(--paper-1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.companion-bonus {
+  display: flex;
+  gap: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+}
+
+.companion-current-tag {
+  position: absolute;
+  top: var(--sp-2);
+  right: var(--sp-2);
+  font-size: 10px;
+  padding: 1px 6px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  color: var(--gold-1);
+}
+
+/* ============== 宗门面板 ============== */
+.clan-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.clan-header {
+  text-align: center;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.clan-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-1);
+}
+
+.clan-sub {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+
+.clan-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+
+.clan-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+}
+
+.clan-stat-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.clan-stat-value {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-1);
+}
+
+.clan-section {
+  margin-top: var(--sp-2);
+}
+
+.clan-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-2);
+}
+
+.clan-territory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.clan-territory-tag {
+  padding: 2px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+  color: var(--paper-2);
+}
+
+.clan-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.clan-member-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+}
+
+.clan-member-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.clan-member-name {
+  flex: 1;
+  color: var(--paper-1);
+}
+
+.clan-member-role {
+  color: var(--gold-2);
+}
+
+.clan-member-contrib {
+  color: var(--paper-3);
+}
+
+.clan-member-status {
+  color: var(--paper-4);
+}
+
+.clan-member-online .clan-member-status {
+  color: var(--jade);
+}
+
+.clan-member-more {
+  text-align: center;
+  color: var(--paper-4);
+  font-size: var(--text-xs);
+  padding: var(--sp-2);
+}
+
+.clan-building-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.clan-building-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+}
+
+.clan-building-name {
+  color: var(--paper-1);
+}
+
+.clan-building-level {
+  color: var(--gold-2);
+  font-family: var(--font-deco);
+}
+
+/* ============== 成就面板 ============== */
+.achievement-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.achievement-header {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  text-align: center;
+  transition: all var(--t-fast);
+}
+
+.achievement-card.unlocked {
+  border-color: var(--gold-3);
+  background: var(--gold-soft);
+}
+
+.achievement-card.locked {
+  opacity: 0.5;
+}
+
+.achievement-icon {
+  font-size: var(--text-lg);
+  color: var(--gold-1);
+}
+
+.achievement-card.locked .achievement-icon {
+  color: var(--paper-5);
+}
+
+.achievement-name {
+  font-size: var(--text-xs);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+}
+
+.achievement-card.locked .achievement-name {
+  color: var(--paper-4);
+}
+
+.achievement-desc {
+  font-size: 11px;
+  color: var(--paper-3);
+  line-height: 1.5;
+}
+
+/* ============== 天赋面板 ============== */
+.talent-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.talent-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.talent-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.talent-section-title-physique {
+  color: var(--crimson);
+  border-color: var(--crimson-soft);
+}
+
+.talent-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.talent-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  transition: all var(--t-fast);
+}
+
+.talent-card:hover {
+  border-color: var(--line-2);
+}
+
+.talent-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.talent-name {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+}
+
+.talent-rarity {
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: var(--r-1);
+  background: rgba(100, 100, 100, 0.15);
+}
+
+.talent-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+  margin-bottom: var(--sp-2);
+}
+
+.talent-effects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-2);
+}
+
+.talent-effect-tag {
+  font-size: 11px;
+  padding: 1px 8px;
+  background: rgba(100, 100, 100, 0.1);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  color: var(--paper-2);
+}
+
+.talent-unawakened {
+  font-size: var(--text-xs);
+  color: var(--crimson);
+  font-style: italic;
+  margin-bottom: var(--sp-2);
+}
+
+.talent-origin {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.5;
+  font-style: italic;
+  padding: var(--sp-2);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--r-1);
+}
+
+.talent-story-btn {
+  margin-top: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.talent-story-btn:hover {
+  background: rgba(212, 168, 88, 0.2);
+}

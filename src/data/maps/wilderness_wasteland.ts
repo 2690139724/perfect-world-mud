@@ -1,0 +1,253 @@
+import { IZone, ZoneType } from '../../domain/entities/Zone';
+import { IRoom, TerrainType } from '../../domain/entities/Room';
+
+export const WASTELAND_ZONE: IZone = {
+  id: 'wasteland',
+  name: '荒原',
+  type: ZoneType.WILD,
+  description: '青石镇以西的广袤荒原，从肥沃的冲积平原逐渐过渡到一望无际的高草草原。风吹草低见兽群，天地苍茫，是历练和狩猎的好去处，但也潜藏着危险。',
+  roomIds: [
+    'wasteland_plain_entrance',
+    'wasteland_plain_center',
+    'wasteland_plain_deep',
+    'wasteland_transition_0',
+    'wasteland_grassland_entrance',
+    'wasteland_grassland_center',
+    'wasteland_grassland_deep',
+  ],
+  entrances: [
+    { direction: '东', targetZoneId: 'qing_shi_town', targetRoomId: 'qing_shi_gate_west' },
+  ],
+  recommendedLevel: 2,
+  fullyExplored: false,
+  specialRules: ['冲积平原', '高草草原'],
+  discovered: false,
+};
+
+export const WASTELAND_ROOMS: IRoom[] = [
+  {
+    id: 'wasteland_plain_entrance',
+    name: '平原入口',
+    description: '荒原冲积平原入口区域。地势平坦开阔，一马平川，土壤呈深褐色。河流蜿蜒如带，视野极远可达天际线。这里相对安全，适合初入此地的修士探索。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 2,
+    exits: [
+      { direction: '内', targetId: 'wasteland_plain_center', targetZoneId: 'wasteland', isHidden: false, travelCost: 5 },
+      { direction: '回城', targetId: null, targetZoneId: 'qing_shi_town', targetRoomId: 'qing_shi_gate_west', isHidden: false, travelCost: 10 },
+    ],
+    monsters: [
+      { monsterId: 'wild_dog', minCount: 1, maxCount: 3, spawnWeight: 50, respawnTime: 300 },
+      { monsterId: 'rabbit', minCount: 1, maxCount: 3, spawnWeight: 50, respawnTime: 300 },
+    ],
+    resources: [
+      { resourceId: 'grain', amount: 1, respawnTime: 300, harvestDifficulty: 1 },
+      { resourceId: 'common_herb', amount: 1, respawnTime: 150, harvestDifficulty: 1 },
+    ],
+    npcs: ['hunter', 'traveler'],
+    isSafeZone: true,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['merchant_caravan', 'abandoned_village', 'bandits', 'ancient_stele'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'plain_detail_0',
+        name: '修仙元素1',
+        description: '平原上散落着古代文明的遗迹（石碑半埋土中、祭坛残基长满荒草）',
+        type: 'environment',
+      },
+      {
+        id: 'plain_detail_1',
+        name: '修仙元素2',
+        description: '某些区域地脉灵气汇聚（宜立门派）',
+        type: 'environment',
+      },
+    ],
+  },
+  {
+    id: 'wasteland_plain_center',
+    name: '平原腹地',
+    description: '荒原冲积平原腹地。地势平坦开阔，一马平川，土壤呈深褐色。河流蜿蜒如带，视野极远可达天际线。灵气逐渐浓郁，凶兽活动增多。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 4,
+    exits: [
+      { direction: '外', targetId: 'wasteland_plain_entrance', targetZoneId: 'wasteland', isHidden: false, travelCost: 5 },
+      { direction: '深', targetId: 'wasteland_plain_deep', targetZoneId: 'wasteland', isHidden: false, travelCost: 8 },
+    ],
+    monsters: [
+      { monsterId: 'wild_dog', minCount: 2, maxCount: 5, spawnWeight: 50, respawnTime: 400 },
+    ],
+    resources: [
+      { resourceId: 'grain', amount: 1, respawnTime: 300, harvestDifficulty: 1 },
+      { resourceId: 'spirit_grain', amount: 1, respawnTime: 400, harvestDifficulty: 3 },
+      { resourceId: 'common_herb', amount: 1, respawnTime: 150, harvestDifficulty: 1 },
+    ],
+    npcs: ['herbalist', 'adventurer'],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['merchant_caravan', 'abandoned_village', 'bandits', 'ancient_stele'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'plain_center_detail_0',
+        name: '修仙元素1',
+        description: '散落着古代文明的遗迹',
+        type: 'environment',
+      },
+    ],
+  },
+  {
+    id: 'wasteland_plain_deep',
+    name: '平原深处',
+    description: '荒原冲积平原深处。地势平坦开阔，一马平川，土壤呈深褐色。河流蜿蜒如带，视野极远可达天际线。灵气最为浓郁，但也最为危险，高阶凶兽出没频繁。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 6,
+    exits: [
+      { direction: '浅', targetId: 'wasteland_plain_center', targetZoneId: 'wasteland', isHidden: false, travelCost: 8 },
+      { direction: '过渡', targetId: 'wasteland_transition_0', targetZoneId: 'wasteland', isHidden: false, travelCost: 6 },
+    ],
+    monsters: [],
+    resources: [
+      { resourceId: 'spirit_grain', amount: 2, respawnTime: 600, harvestDifficulty: 3 },
+    ],
+    npcs: ['explorer'],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['merchant_caravan', 'abandoned_village', 'bandits', 'ancient_stele'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'plain_deep_detail_0',
+        name: '修仙元素1',
+        description: '地脉灵气汇聚区域',
+        type: 'environment',
+      },
+    ],
+  },
+  {
+    id: 'wasteland_transition_0',
+    name: '平原与草原过渡带',
+    description: '从冲积平原逐渐过渡到高草草原的区域。地势平坦开阔逐渐变为一望无际的草海，植被和地貌也随之变化。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 6,
+    exits: [
+      { direction: '返回', targetId: 'wasteland_plain_deep', targetZoneId: 'wasteland', isHidden: false, travelCost: 6 },
+      { direction: '进入', targetId: 'wasteland_grassland_entrance', targetZoneId: 'wasteland', isHidden: false, travelCost: 6 },
+    ],
+    monsters: [],
+    resources: [],
+    npcs: [],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: [],
+    zoneId: 'wasteland',
+  },
+  {
+    id: 'wasteland_grassland_entrance',
+    name: '草原入口',
+    description: '荒原高草草原入口区域。一望无际的草海，野草高过人腰，风吹草低见兽群。天际线与草海融为一体，天地苍茫。这里相对安全，适合初入此地的修士探索。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 5,
+    exits: [
+      { direction: '内', targetId: 'wasteland_grassland_center', targetZoneId: 'wasteland', isHidden: false, travelCost: 5 },
+      { direction: '返回', targetId: 'wasteland_transition_0', targetZoneId: 'wasteland', isHidden: false, travelCost: 6 },
+    ],
+    monsters: [
+      { monsterId: 'horned_horse', minCount: 1, maxCount: 3, spawnWeight: 40, respawnTime: 300 },
+    ],
+    resources: [
+      { resourceId: 'wild_grain', amount: 1, respawnTime: 200, harvestDifficulty: 2 },
+      { resourceId: 'grassland_spirit_herb', amount: 1, respawnTime: 350, harvestDifficulty: 4 },
+    ],
+    npcs: ['hunter', 'traveler'],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['beast_stampede', 'ancient_battlefield', 'lost_direction', 'grassland_bandits'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'grassland_detail_0',
+        name: '修仙元素1',
+        description: '成群的低阶凶兽在此游荡（角马群、剑齿野猪群、草原狼群）',
+        type: 'environment',
+      },
+      {
+        id: 'grassland_detail_1',
+        name: '修仙元素2',
+        description: '草原深处可能有太古遗种（独角兽、六牙象）',
+        type: 'environment',
+      },
+    ],
+  },
+  {
+    id: 'wasteland_grassland_center',
+    name: '草原腹地',
+    description: '荒原高草草原腹地。一望无际的草海，野草高过人腰，风吹草低见兽群。天际线与草海融为一体，天地苍茫。灵气逐渐浓郁，凶兽活动增多。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 8,
+    exits: [
+      { direction: '外', targetId: 'wasteland_grassland_entrance', targetZoneId: 'wasteland', isHidden: false, travelCost: 5 },
+      { direction: '深', targetId: 'wasteland_grassland_deep', targetZoneId: 'wasteland', isHidden: false, travelCost: 8 },
+    ],
+    monsters: [
+      { monsterId: 'horned_horse', minCount: 2, maxCount: 5, spawnWeight: 40, respawnTime: 400 },
+      { monsterId: 'saber_tooth_boar', minCount: 2, maxCount: 5, spawnWeight: 30, respawnTime: 400 },
+      { monsterId: 'grassland_wolf', minCount: 2, maxCount: 5, spawnWeight: 30, respawnTime: 400 },
+    ],
+    resources: [
+      { resourceId: 'beast_hide_meat', amount: 1, respawnTime: 250, harvestDifficulty: 3 },
+      { resourceId: 'wild_grain', amount: 1, respawnTime: 200, harvestDifficulty: 2 },
+      { resourceId: 'grassland_spirit_herb', amount: 1, respawnTime: 350, harvestDifficulty: 4 },
+    ],
+    npcs: ['herbalist', 'adventurer'],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['beast_stampede', 'ancient_battlefield', 'lost_direction', 'grassland_bandits'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'grassland_center_detail_0',
+        name: '修仙元素1',
+        description: '成群的低阶凶兽在此游荡',
+        type: 'environment',
+      },
+    ],
+  },
+  {
+    id: 'wasteland_grassland_deep',
+    name: '草原深处',
+    description: '荒原高草草原深处。一望无际的草海，野草高过人腰，风吹草低见兽群。天际线与草海融为一体，天地苍茫。灵气最为浓郁，但也最为危险，高阶凶兽出没频繁。',
+    terrain: TerrainType.PLAIN,
+    spiritDensity: 11,
+    exits: [
+      { direction: '浅', targetId: 'wasteland_grassland_center', targetZoneId: 'wasteland', isHidden: false, travelCost: 8 },
+    ],
+    monsters: [
+      { monsterId: 'saber_tooth_boar', minCount: 3, maxCount: 8, spawnWeight: 30, respawnTime: 500 },
+      { monsterId: 'grassland_wolf', minCount: 3, maxCount: 8, spawnWeight: 30, respawnTime: 500 },
+    ],
+    resources: [
+      { resourceId: 'beast_hide_meat', amount: 2, respawnTime: 375, harvestDifficulty: 3 },
+      { resourceId: 'grassland_spirit_herb', amount: 2, respawnTime: 525, harvestDifficulty: 4 },
+    ],
+    npcs: ['explorer'],
+    isSafeZone: false,
+    visited: false,
+    firstVisited: 0,
+    dynamicEvents: ['beast_stampede', 'ancient_battlefield', 'lost_direction', 'grassland_bandits'],
+    zoneId: 'wasteland',
+    details: [
+      {
+        id: 'grassland_deep_detail_0',
+        name: '修仙元素1',
+        description: '草原深处可能有太古遗种',
+        type: 'environment',
+      },
+    ],
+  },
+];

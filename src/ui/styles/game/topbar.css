@@ -1,0 +1,160 @@
+/* ============== 顶部状态栏 ============== */
+.game-topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--sp-6);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--glass-2);
+  border-bottom: 1px solid var(--line-1);
+  position: relative;
+  z-index: 5;
+}
+
+.game-topbar::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-2) 50%, transparent 100%);
+  opacity: 0.4;
+}
+
+.game-topbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.game-topbar-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--paper-0);
+  letter-spacing: 0.25em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-topbar-sub {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  letter-spacing: 0.15em;
+}
+
+.game-topbar-realm {
+  color: var(--gold-2);
+  font-family: var(--font-deco);
+}
+
+.game-topbar-sep {
+  color: var(--paper-5);
+}
+
+.game-topbar-world {
+  color: var(--paper-2);
+}
+
+.game-topbar-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  color: var(--gold-2);
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+}
+
+.game-topbar-talents {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  color: var(--paper-2);
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+}
+
+.game-topbar-bars {
+  display: flex;
+  gap: var(--sp-5);
+  align-items: center;
+  justify-content: center;
+}
+
+.game-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  justify-content: flex-end;
+}
+
+.game-topbar-time {
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  color: var(--paper-1);
+  letter-spacing: 0.2em;
+  padding: var(--sp-2) var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.game-topbar-time-icon {
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 1024px) {
+  .game-topbar {
+    gap: var(--sp-4);
+    padding: var(--sp-2) var(--sp-4);
+  }
+}
+
+@media (max-width: 900px) {
+  .game-topbar-bars {
+    display: none;
+  }
+  .game-topbar {
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-3);
+  }
+  .game-topbar-title {
+    font-size: var(--text-md);
+  }
+}
+
+@media (max-width: 640px) {
+  .game-topbar {
+    grid-template-columns: 1fr auto;
+    padding: var(--sp-2) var(--sp-3);
+    gap: var(--sp-2);
+  }
+  .game-topbar-title {
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+  }
+  .game-topbar-sub {
+    gap: var(--sp-2);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.1em;
+  }
+  .game-topbar-sub .game-topbar-sep,
+  .game-topbar-sub .game-topbar-world,
+  .game-topbar-sub .game-topbar-talents {
+    display: none;
+  }
+  .game-topbar-time {
+    padding: var(--sp-1) var(--sp-2);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.1em;
+  }
+  .game-topbar-right .icon-btn:not([data-action="open-menu"]) {
+    display: none;
+  }
+}

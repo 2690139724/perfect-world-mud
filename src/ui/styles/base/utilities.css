@@ -1,0 +1,26 @@
+/* 工具类 */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: var(--sp-1); }
+.gap-2 { gap: var(--sp-2); }
+.gap-3 { gap: var(--sp-3); }
+.gap-4 { gap: var(--sp-4); }
+
+.text-paper { color: var(--paper-1); }
+.text-dim { color: var(--paper-3); }
+.text-mute { color: var(--paper-4); }
+.text-gold { color: var(--gold-2); }
+.text-crimson { color: var(--crimson); }
+.text-jade { color: var(--jade); }
+
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-md { font-size: var(--text-md); }
+.text-lg { font-size: var(--text-lg); }
+
+.font-deco { font-family: var(--font-deco); }
+.font-serif { font-family: var(--font-serif); }

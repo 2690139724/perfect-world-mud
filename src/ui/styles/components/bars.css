@@ -1,0 +1,100 @@
+/* ============== 条形组件 ============== */
+
+/* 顶部条形（HP/MP/EXP） */
+.topbar-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 160px;
+}
+
+.topbar-bar-icon {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--gold-2);
+  width: 18px;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.topbar-bar-track {
+  position: relative;
+  flex: 1;
+  height: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--line-1);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.topbar-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 6px;
+  transition: width var(--t-slow);
+  background: linear-gradient(90deg, var(--gold-4) 0%, var(--gold-2) 100%);
+}
+
+.topbar-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 50%, rgba(0, 0, 0, 0.18) 100%);
+}
+
+.topbar-bar-fill-hp { background: linear-gradient(90deg, #6b3030 0%, #c54a4a 100%); }
+.topbar-bar-fill-mana { background: linear-gradient(90deg, #2a5070 0%, #5a99b8 100%); }
+.topbar-bar-fill-exp { background: linear-gradient(90deg, var(--gold-4) 0%, var(--gold-1) 100%); }
+
+.topbar-bar-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xs);
+  color: var(--paper-0);
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+/* 区域进度条 */
+.zone-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.zone-progress-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.zone-progress-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--gold-4) 0%, var(--gold-1) 100%);
+  transition: width var(--t-slow);
+}
+
+/* 通用进度条填充（TimeWeatherDisplay 等使用） */
+.progress-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-1));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.zone-progress-text {
+  font-size: var(--text-2xs);
+  color: var(--paper-3);
+  letter-spacing: 0.1em;
+  min-width: 56px;
+  text-align: right;
+}

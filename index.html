@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>无尽疆域 · 修仙文字MUD</title>
+  <link rel="stylesheet" href="/src/ui/styles/main.css" />
+</head>
+<body>
+  <!-- ===================== 主菜单 ===================== -->
+  <div id="main-menu" class="menu-screen">
+    <div class="menu-bg-layer"></div>
+    <div class="menu-bg-particles"></div>
+
+    <div class="menu-frame">
+      <header class="menu-header">
+        <div class="menu-title-block">
+          <div class="menu-subtitle">— 修仙放置文字游戏 —</div>
+          <h1 class="menu-title">无尽疆域</h1>
+          <div class="menu-title-en">ENDLESS REALM</div>
+        </div>
+        <div class="menu-time-hint" id="menu-time-hint">甲辰年 · 春 · 辰时</div>
+      </header>
+
+      <main class="menu-main">
+        <section class="menu-actions">
+          <button class="menu-btn menu-btn-primary" data-action="new-game">
+            <span class="menu-btn-glyph">入</span>
+            <span class="menu-btn-text">踏入仙途</span>
+            <span class="menu-btn-sub">创建新角色</span>
+          </button>
+          <button class="menu-btn" data-action="load-game">
+            <span class="menu-btn-glyph">续</span>
+            <span class="menu-btn-text">道果续缘</span>
+            <span class="menu-btn-sub">继续上次修行</span>
+          </button>
+          <button class="menu-btn" data-action="settings">
+            <span class="menu-btn-glyph">调</span>
+            <span class="menu-btn-text">仙道设置</span>
+            <span class="menu-btn-sub">音画 · 操作</span>
+          </button>
+          <button class="menu-btn menu-btn-quiet" data-action="credits">
+            <span class="menu-btn-glyph">志</span>
+            <span class="menu-btn-text">作者寄语</span>
+            <span class="menu-btn-sub">关于本作</span>
+          </button>
+        </section>
+
+        <aside class="menu-meta">
+          <div class="menu-meta-card">
+            <div class="menu-meta-label">版本</div>
+            <div class="menu-meta-value">v0.2 · 仙途</div>
+          </div>
+          <div class="menu-meta-card">
+            <div class="menu-meta-label">法则</div>
+            <div class="menu-meta-value">天道轮回</div>
+          </div>
+          <div class="menu-meta-card">
+            <div class="menu-meta-label">存档</div>
+            <div class="menu-meta-value" id="menu-save-status">无存档</div>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="menu-footer">
+        <span class="menu-footer-line">一袭青衫覆苍茫</span>
+        <span class="menu-footer-sep">·</span>
+        <span class="menu-footer-line">半卷道经度韶光</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===================== 角色创建 ===================== -->
+  <div id="creation-screen" class="creation-screen hidden">
+    <div class="creation-frame">
+      <div class="creation-step" data-step="name">
+        <div class="creation-step-num">壹</div>
+        <div class="creation-step-label">立名</div>
+        <div class="creation-card">
+          <h2 class="creation-card-title">天道赐名</h2>
+          <p class="creation-card-desc">道号一出，因果既定。</p>
+          <div id="creation-name-card" class="name-card">
+            <div id="creation-name-display" class="name-display"></div>
+          </div>
+          <button id="creation-name-reroll" class="menu-btn menu-btn-quiet" data-action="name-reroll">
+            <span class="menu-btn-glyph">改</span>
+            <span class="menu-btn-text">换一个</span>
+          </button>
+          <div class="creation-card-actions">
+            <button class="menu-btn menu-btn-quiet" data-action="creation-back">
+              <span class="menu-btn-glyph">返</span>
+              <span class="menu-btn-text">返回</span>
+            </button>
+            <button class="menu-btn menu-btn-primary" data-action="creation-next">
+              <span class="menu-btn-glyph">天</span>
+              <span class="menu-btn-text">择天赋</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creation-step hidden" data-step="talent">
+        <div class="creation-step-num">贰</div>
+        <div class="creation-step-label">天赋</div>
+        <div class="creation-card creation-card-wide">
+          <h2 class="creation-card-title">择三天赋以定根骨</h2>
+          <p class="creation-card-desc">天道酬勤，亦酬天纵之资。</p>
+          <div id="creation-talents" class="talent-grid"></div>
+          <div class="creation-card-actions">
+            <button class="menu-btn menu-btn-quiet" id="creation-refresh" data-action="talent-reroll">
+              <span class="menu-btn-glyph">洗</span>
+              <span class="menu-btn-text">洗炼</span>
+            </button>
+            <span class="talent-count" id="creation-selected-count">已选 0 / 3</span>
+            <button class="menu-btn menu-btn-quiet" data-action="talent-back">
+              <span class="menu-btn-glyph">返</span>
+              <span class="menu-btn-text">回上页</span>
+            </button>
+            <button class="menu-btn menu-btn-primary" id="creation-start" data-action="talent-confirm" disabled>
+              <span class="menu-btn-glyph">道</span>
+              <span class="menu-btn-text">入道</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="creation-step hidden" data-step="origin">
+        <div class="creation-step-num">叁</div>
+        <div class="creation-step-label">出身</div>
+        <div class="creation-card creation-card-wide">
+          <h2 class="creation-card-title">今身降世何处</h2>
+          <p class="creation-card-desc">出身不同，命数亦殊。</p>
+          <div id="creation-origin-info" class="origin-grid"></div>
+          <div class="creation-card-actions">
+            <button class="menu-btn menu-btn-quiet" data-action="origin-back">
+              <span class="menu-btn-glyph">返</span>
+              <span class="menu-btn-text">回上页</span>
+            </button>
+            <button class="menu-btn menu-btn-primary" id="creation-confirm-origin" data-action="origin-confirm" disabled>
+              <span class="menu-btn-glyph">命</span>
+              <span class="menu-btn-text">定命</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 游戏主界面 ===================== -->
+  <div id="game-screen" class="game-screen hidden">
+    <!-- 顶部状态栏 -->
+    <header class="game-topbar">
+      <div class="game-topbar-left">
+        <div class="game-topbar-title" id="player-name">道友</div>
+        <div class="game-topbar-sub">
+        <span class="game-topbar-realm" id="player-realm">凡人·一层</span>
+        <span class="game-topbar-sep">·</span>
+        <span class="game-topbar-world" id="player-world">无尽疆域</span>
+        <span class="game-topbar-sep">·</span>
+        <span class="game-topbar-gold" id="player-gold">💰 0</span>
+        <span class="game-topbar-sep">·</span>
+        <span class="game-topbar-talents" id="player-talents">天赋 0/3</span>
+      </div>
+      </div>
+
+      <div class="game-topbar-bars">
+        <div class="topbar-bar" data-bar="hp">
+          <span class="topbar-bar-icon">气</span>
+          <div class="topbar-bar-track">
+            <div class="topbar-bar-fill topbar-bar-fill-hp" id="topbar-hp-fill"></div>
+            <div class="topbar-bar-text" id="topbar-hp-text">50 / 50</div>
+          </div>
+        </div>
+        <div class="topbar-bar" data-bar="mana">
+          <span class="topbar-bar-icon">元</span>
+          <div class="topbar-bar-track">
+            <div class="topbar-bar-fill topbar-bar-fill-mana" id="topbar-mp-fill"></div>
+            <div class="topbar-bar-text" id="topbar-mp-text">20 / 20</div>
+          </div>
+        </div>
+        <div class="topbar-bar" data-bar="exp">
+          <span class="topbar-bar-icon">道</span>
+          <div class="topbar-bar-track">
+            <div class="topbar-bar-fill topbar-bar-fill-exp" id="topbar-exp-fill"></div>
+            <div class="topbar-bar-text" id="topbar-exp-text">0 / 30</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-topbar-right">
+        <div class="game-topbar-time" id="topbar-time">辰时 · 春</div>
+        <button class="icon-btn" data-action="open-menu" title="主菜单">⛩</button>
+        <button class="icon-btn" data-action="open-help" title="帮助">?</button>
+      </div>
+    </header>
+
+    <!-- 三栏主区 -->
+    <main class="game-grid">
+      <!-- 左栏：位置/区域/NPC -->
+      <aside class="col col-left">
+        <section class="card" id="card-location">
+          <div class="card-header">
+            <span class="card-header-icon">◆</span>
+            <h3 class="card-title">位置</h3>
+          </div>
+          <div class="card-body">
+            <div class="location-name" id="location-name">石村外</div>
+            <p class="location-desc" id="location-desc">古木参天，灵气稀薄。</p>
+          </div>
+        </section>
+
+        <section class="card" id="card-zone">
+          <div class="card-header">
+            <span class="card-header-icon">◇</span>
+            <h3 class="card-title">区域</h3>
+            <span class="card-header-tag" id="zone-type">村庄</span>
+          </div>
+          <div class="card-body">
+            <div class="zone-name" id="zone-name">石村</div>
+            <div class="zone-progress">
+              <div class="zone-progress-track">
+                <div class="zone-progress-fill" id="zone-progress-fill"></div>
+              </div>
+              <div class="zone-progress-text" id="zone-progress-text">探索 0%</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card card-npc" id="card-npc">
+          <div class="card-header">
+            <span class="card-header-icon">◆</span>
+            <h3 class="card-title">可交谈</h3>
+          </div>
+          <div class="card-body card-npc-body">
+            <div class="npc-list" id="npc-list">
+              <div class="npc-empty">此处无人。</div>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 中栏：叙事流 + 事件卡 -->
+      <section class="col col-center">
+        <div class="narrative-shell">
+          <div class="narrative-tabs">
+            <button class="narrative-tab is-active" data-tab="stream">叙事</button>
+            <button class="narrative-tab" data-tab="events">事件</button>
+          </div>
+          <div class="narrative-viewport" id="narrative-viewport">
+            <div class="narrative-stream" id="narrative-stream"></div>
+          </div>
+          <div class="narrative-footer">
+            <button class="link-btn" data-action="narrative-clear">清屏</button>
+            <span class="narrative-footer-sep">·</span>
+            <button class="link-btn" data-action="narrative-tail">至末</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右栏：装备/功能入口 -->
+      <aside class="col col-right">
+        <section class="card" id="card-equip">
+          <div class="card-header">
+            <span class="card-header-icon">◆</span>
+            <h3 class="card-title">装备</h3>
+          </div>
+          <div class="card-body">
+            <div class="equip-list" id="equip-list"></div>
+          </div>
+        </section>
+
+        <section class="card" id="card-quick">
+          <div class="card-header">
+            <span class="card-header-icon">◇</span>
+            <h3 class="card-title">快捷</h3>
+            <button class="card-header-action" id="quickbar-edit-btn" data-action="quickbar-edit" title="自定义快捷栏">编</button>
+          </div>
+          <div class="card-body">
+            <div class="quick-grid" id="quick-grid"></div>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <!-- 底部操作栏 -->
+    <footer class="game-actionbar">
+      <div class="action-group">
+        <button class="action-btn" data-action="look"><span class="action-btn-glyph">望</span><span class="action-btn-text">环顾</span></button>
+        <button class="action-btn" data-action="move"><span class="action-btn-glyph">履</span><span class="action-btn-text">行走</span></button>
+        <button class="action-btn" data-action="search"><span class="action-btn-glyph">寻</span><span class="action-btn-text">探查</span></button>
+      </div>
+      <div class="action-group">
+        <button class="action-btn" data-action="cultivate"><span class="action-btn-glyph">修</span><span class="action-btn-text">修炼</span></button>
+        <button class="action-btn" data-action="rest"><span class="action-btn-glyph">禅</span><span class="action-btn-text">打坐</span></button>
+      </div>
+      <div class="action-group">
+        <button class="action-btn" data-action="combat"><span class="action-btn-glyph">刀</span><span class="action-btn-text">寻战</span></button>
+        <button class="action-btn" data-action="alchemy"><span class="action-btn-glyph">丹</span><span class="action-btn-text">炼丹</span></button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===================== 功能窗口（背包/地图/修炼/功法/道侣/宗族/帮助/设置） ===================== -->
+  <div id="feature-window" class="feature-window hidden">
+    <header class="feature-window-header">
+      <h2 class="feature-window-title" id="feature-window-title">功能</h2>
+      <button class="feature-window-close" data-action="feature-close">×</button>
+    </header>
+    <div class="feature-window-body" id="feature-window-body"></div>
+  </div>
+  <div id="feature-window-mask" class="feature-window-mask hidden"></div>
+
+  <!-- ===================== 角色创建覆盖层 ===================== -->
+  <div id="creation-overlay" class="creation-overlay hidden">
+    <div class="creation-card creation-card-wide">
+      <div class="creation-header">
+        <div class="creation-title">【投身红尘】</div>
+        <div class="creation-subtitle">— 选择你的出身与天赋 —</div>
+      </div>
+      <div class="creation-body" id="creation-overlay-body">
+        <p class="creation-card-desc">正在准备角色创建...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 转世重修覆盖层 ===================== -->
+  <div id="reincarnation-overlay" class="creation-overlay hidden">
+    <div class="creation-card creation-card-wide">
+      <div class="creation-header">
+        <div class="creation-title">【身陨道消】</div>
+        <div class="creation-subtitle">— 天道轮回，再世为人 —</div>
+      </div>
+      <div class="creation-body text-center">
+        <p class="creation-card-desc">你已陨落于修道之途...</p>
+        <p class="creation-card-desc">前世修为可部分保留，重选天赋再启征程。</p>
+      </div>
+      <div class="creation-footer">
+        <button class="menu-btn menu-btn-primary" data-action="reincarnate">
+          <span class="menu-btn-glyph">轮</span>
+          <span class="menu-btn-text">转世重修</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 应用根容器（用于退出动画） ===================== -->
+  <div id="app" class="app-container"></div>
+
+  <div id="modal-container"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

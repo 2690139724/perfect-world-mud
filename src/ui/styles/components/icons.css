@@ -1,0 +1,20 @@
+/* ============== 图标按钮 ============== */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: var(--text-md);
+  color: var(--paper-2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  background: rgba(0, 0, 0, 0.2);
+  transition: all var(--t-fast);
+}
+
+.icon-btn:hover {
+  color: var(--gold-1);
+  border-color: var(--line-2);
+  background: var(--gold-soft);
+}

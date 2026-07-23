@@ -1,0 +1,336 @@
+/* ============== 角色创建 ============== */
+.creation-screen {
+  background: var(--ink-0);
+}
+
+/* 创建/转世覆盖层 */
+.creation-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2500;
+  animation: fade-in-soft 0.3s ease;
+}
+
+.creation-overlay.hidden {
+  display: none !important;
+}
+
+.creation-overlay .creation-card-wide {
+  max-width: 640px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--glass-3);
+  border: 1px solid var(--gold-3);
+  box-shadow: var(--shadow-3), 0 0 60px rgba(212, 168, 88, 0.1);
+  animation: scale-in 0.4s ease;
+}
+
+.creation-overlay .creation-header {
+  text-align: center;
+  padding: var(--sp-5) var(--sp-4) var(--sp-3);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.creation-overlay .creation-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-xl);
+  color: var(--gold-1);
+  letter-spacing: 0.4em;
+  text-shadow: 0 0 12px rgba(212, 168, 88, 0.3);
+}
+
+.creation-overlay .creation-subtitle {
+  margin-top: var(--sp-2);
+  font-size: var(--text-sm);
+  color: var(--paper-3);
+  letter-spacing: 0.2em;
+}
+
+.creation-overlay .creation-body {
+  padding: var(--sp-5) var(--sp-4);
+}
+
+.creation-overlay .creation-body.text-center {
+  text-align: center;
+}
+
+.creation-overlay .creation-footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4) var(--sp-5);
+  border-top: 1px solid var(--line-1);
+}
+
+.creation-overlay .creation-card-desc {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  line-height: 1.8;
+  margin: var(--sp-2) 0;
+}
+
+.creation-overlay .offline-message {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  margin: var(--sp-2) 0;
+  line-height: 1.7;
+}
+
+.creation-frame {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--sp-5);
+  gap: var(--sp-5);
+}
+
+.creation-step {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  animation: scale-in 0.5s ease both;
+}
+
+.creation-step-num {
+  font-family: var(--font-deco);
+  font-size: var(--text-3xl);
+  color: var(--gold-2);
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(212, 168, 88, 0.3);
+}
+
+.creation-step-label {
+  font-size: var(--text-md);
+  color: var(--paper-1);
+  letter-spacing: 0.6em;
+  padding-left: 0.6em;
+  font-family: var(--font-deco);
+}
+
+.creation-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--glass-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-4);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: relative;
+  box-shadow: var(--shadow-3);
+}
+
+.creation-card-wide {
+  max-width: 880px;
+}
+
+.creation-card::before,
+.creation-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--gold-2);
+}
+
+.creation-card::before {
+  top: 10px; left: 10px;
+  border-right: none; border-bottom: none;
+}
+
+.creation-card::after {
+  bottom: 10px; right: 10px;
+  border-left: none; border-top: none;
+}
+
+.creation-card-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-xl);
+  color: var(--paper-0);
+  letter-spacing: 0.2em;
+  font-weight: normal;
+  text-align: center;
+}
+
+.creation-card-desc {
+  font-size: var(--text-sm);
+  color: var(--paper-3);
+  letter-spacing: 0.2em;
+  text-align: center;
+  margin-top: calc(-1 * var(--sp-2));
+}
+
+.name-card {
+  width: 100%;
+  padding: var(--sp-5) var(--sp-4);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-3);
+  text-align: center;
+  margin-bottom: var(--sp-3);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.name-display {
+  font-family: var(--font-deco);
+  font-size: var(--text-2xl);
+  color: var(--gold-1);
+  letter-spacing: 0.4em;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.creation-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: var(--sp-2);
+}
+
+.creation-card-actions .menu-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.creation-card-actions .menu-btn-glyph {
+  width: 36px;
+  height: 36px;
+  font-size: var(--text-md);
+}
+
+/* 天赋网格 */
+.talent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: var(--sp-2);
+}
+
+.talent-card {
+  padding: var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  cursor: pointer;
+  transition: all var(--t-normal);
+  position: relative;
+  text-align: left;
+  font-family: var(--font-serif);
+}
+
+.talent-card:hover {
+  border-color: var(--line-2);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.talent-card.is-selected {
+  border-color: var(--gold-2);
+  background: linear-gradient(135deg, var(--gold-soft) 0%, transparent 100%);
+  box-shadow: var(--shadow-gold);
+}
+
+.talent-card-rank {
+  font-size: var(--text-2xs);
+  color: var(--gold-2);
+  letter-spacing: 0.3em;
+}
+
+.talent-card-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--paper-0);
+  letter-spacing: 0.15em;
+}
+
+.talent-card-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+}
+
+/* 出身网格 */
+.origin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: var(--sp-2);
+}
+
+.origin-card {
+  padding: var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  cursor: pointer;
+  transition: all var(--t-normal);
+  text-align: left;
+  font-family: var(--font-serif);
+}
+
+.origin-card:hover {
+  border-color: var(--line-2);
+}
+
+.origin-card.is-selected {
+  border-color: var(--gold-2);
+  background: linear-gradient(135deg, var(--gold-soft) 0%, transparent 100%);
+}
+
+.origin-card-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--paper-0);
+  letter-spacing: 0.15em;
+}
+
+.origin-card-desc {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.6;
+}
+
+.talent-count {
+  font-size: var(--text-sm);
+  color: var(--paper-3);
+  letter-spacing: 0.2em;
+  font-family: var(--font-deco);
+  padding: 0 var(--sp-3);
+}
+
+@media (max-width: 768px) {
+  .talent-grid,
+  .origin-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .talent-grid,
+  .origin-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "wujiang-game",
+  "private": true,
+  "version": "0.1.0",
+  "description": "纯文字修真放置游戏 - 无尽疆域：完美世界",
+  "main": "main.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "electron:dev": "electron .",
+    "electron:build": "npm run build && electron-builder",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.wujiang.game",
+    "productName": "无尽疆域",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "dist/**/*",
+      "build/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "license": "LICENSE.txt"
+    }
+  },
+  "devDependencies": {
+    "electron": "28.3.3",
+    "electron-builder": "^26.15.3",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

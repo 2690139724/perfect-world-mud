@@ -1,0 +1,366 @@
+/* ============== 传闻公告板 ============== */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+/* RumorBoard 作为功能窗口内嵌面板，沿用父容器层级 */
+/* 动态颜色（传闻类型/可信度）通过 CSS 自定义属性传入：
+   --type-color / --type-color-soft / --reliability-color / --spread-pct */
+
+.rumor-board {
+  font-family: var(--font-serif);
+  color: var(--paper-1);
+  padding: var(--sp-4);
+  background: var(--glass-2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-height: 70vh;
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.board-header h3 {
+  margin: 0;
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.board-header h3::before {
+  content: '闻';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--gold-soft);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-2);
+  color: var(--gold-1);
+  font-size: var(--text-sm);
+}
+
+.header-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.header-stats .stat-item {
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+}
+
+.header-stats .stat-item::before {
+  content: '◆ ';
+  color: var(--gold-2);
+  margin-right: var(--sp-1);
+}
+
+.board-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.filter-btn {
+  padding: var(--sp-1) var(--sp-3);
+  background: var(--glass-1);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  color: var(--paper-2);
+  font-family: var(--font-deco);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.filter-btn:hover {
+  border-color: var(--line-2);
+  color: var(--paper-0);
+  background: var(--glass-2);
+}
+
+.filter-btn.active {
+  background: var(--gold-soft);
+  border-color: var(--line-3);
+  color: var(--gold-1);
+  box-shadow: 0 0 10px rgba(212, 168, 88, 0.18);
+}
+
+/* 颜色指示条（基于 CSS 变量 --color） */
+.filter-btn[data-filter]:not([data-filter="all"])::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color, var(--paper-3));
+  margin-right: var(--sp-1);
+  vertical-align: middle;
+}
+
+.rumor-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding-right: var(--sp-1);
+}
+
+.rumor-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.rumor-list::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 2px;
+}
+
+.rumor-item {
+  padding: var(--sp-3);
+  background: var(--glass-1);
+  border: 1px solid var(--line-1);
+  border-left: 3px solid var(--type-color, var(--paper-4));
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.rumor-item:hover {
+  background: var(--glass-2);
+  border-color: var(--line-2);
+  transform: translateX(2px);
+}
+
+.rumor-item.hidden {
+  display: none;
+}
+
+.rumor-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.type-badge,
+.reliability-badge,
+.status-badge {
+  display: inline-block;
+  padding: 2px var(--sp-2);
+  border-radius: var(--r-1);
+  font-size: var(--text-2xs);
+  font-family: var(--font-deco);
+  letter-spacing: 0.1em;
+}
+
+.type-badge {
+  background: var(--type-color-soft, rgba(255, 255, 255, 0.1));
+  color: var(--type-color, var(--paper-2));
+  border: 1px solid var(--type-color, var(--line-1));
+}
+
+.reliability-badge {
+  background: var(--glass-2);
+  color: var(--reliability-color, var(--paper-2));
+  border: 1px solid var(--reliability-color, var(--line-1));
+}
+
+.status-badge {
+  background: var(--glass-2);
+  color: var(--paper-3);
+  border: 1px solid var(--line-1);
+  margin-left: auto;
+}
+
+.rumor-title {
+  font-size: var(--text-sm);
+  font-weight: bold;
+  color: var(--paper-0);
+  margin-bottom: var(--sp-1);
+  line-height: 1.4;
+}
+
+.rumor-preview {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  line-height: 1.5;
+  margin-bottom: var(--sp-2);
+}
+
+.rumor-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--text-2xs);
+  color: var(--paper-4);
+}
+
+.rumor-footer .source::before {
+  content: '源 ';
+  color: var(--gold-3);
+}
+
+.rumor-footer .date::before {
+  content: '录 ';
+  color: var(--gold-3);
+}
+
+.spread-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--glass-2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: auto;
+  max-width: 100px;
+}
+
+.spread-fill {
+  height: 100%;
+  width: var(--spread-pct, 0%);
+  background: linear-gradient(90deg, var(--gold-2), var(--gold-1));
+  transition: width var(--t-normal);
+}
+
+/* ============== 详情面板 ============== */
+.rumor-detail {
+  display: none;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--glass-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-2);
+  animation: rumor-detail-in 0.3s ease-out;
+}
+
+.rumor-detail.visible {
+  display: flex;
+}
+
+@keyframes rumor-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.detail-header h4 {
+  margin: 0;
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--paper-0);
+  letter-spacing: 0.1em;
+}
+
+.detail-header h4 .type-prefix {
+  color: var(--type-color, var(--gold-2));
+  margin-right: var(--sp-2);
+}
+
+.close-btn {
+  background: none;
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  color: var(--paper-3);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  font-size: var(--text-xs);
+  transition: all var(--t-fast);
+}
+
+.close-btn:hover {
+  color: var(--crimson);
+  border-color: var(--crimson);
+}
+
+.detail-content {
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+  line-height: 1.7;
+  padding: var(--sp-2) 0;
+}
+
+.detail-meta {
+  display: flex;
+  gap: var(--sp-5);
+  padding: var(--sp-2) 0;
+  border-top: 1px dashed var(--line-1);
+  border-bottom: 1px dashed var(--line-1);
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+}
+
+.detail-meta .meta-item strong {
+  color: var(--gold-1);
+  font-weight: normal;
+  font-family: var(--font-deco);
+}
+
+.detail-actions {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--glass-1);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-2);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.action-btn::before {
+  font-family: var(--font-deco);
+  margin-right: var(--sp-1);
+  color: var(--gold-2);
+}
+
+.action-btn:hover {
+  background: var(--gold-soft);
+  border-color: var(--line-3);
+  color: var(--gold-1);
+}
+
+.verify-btn#verify-true::before { content: '证'; }
+.verify-btn#verify-false::before { content: '驳'; }
+.action-btn#spread-rumor::before { content: '传'; }

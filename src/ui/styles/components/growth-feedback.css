@@ -1,0 +1,87 @@
+/* ============== 突破反馈弹窗 ============== */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+
+.breakthrough-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2400;
+  animation: fade-in-soft 0.3s ease;
+}
+
+.breakthrough-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: linear-gradient(135deg, rgba(30, 22, 12, 0.98), rgba(18, 14, 6, 0.98));
+  border: 2px solid var(--gold-2);
+  border-radius: var(--r-4);
+  padding: var(--sp-7) var(--sp-8);
+  text-align: center;
+  z-index: 2500;
+  box-shadow:
+    0 0 60px rgba(212, 168, 88, 0.45),
+    0 0 120px rgba(212, 168, 88, 0.25),
+    var(--shadow-3);
+  animation: breakthrough-popup-in 0.5s ease-out forwards;
+}
+
+.breakthrough-popup::before,
+.breakthrough-popup::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gold-1);
+  pointer-events: none;
+}
+
+.breakthrough-popup::before {
+  top: 10px; left: 10px;
+  border-right: none; border-bottom: none;
+}
+
+.breakthrough-popup::after {
+  bottom: 10px; right: 10px;
+  border-left: none; border-top: none;
+}
+
+.breakthrough-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-2xl);
+  font-weight: bold;
+  color: var(--gold-1);
+  margin-bottom: var(--sp-5);
+  letter-spacing: 0.3em;
+  text-shadow: 0 0 20px rgba(212, 168, 88, 0.7);
+}
+
+.breakthrough-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-xl);
+  color: var(--paper-0);
+  margin-bottom: var(--sp-4);
+  letter-spacing: 0.2em;
+}
+
+.breakthrough-desc {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  margin-top: var(--sp-3);
+  letter-spacing: 0.1em;
+}
+
+@keyframes breakthrough-popup-in {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}

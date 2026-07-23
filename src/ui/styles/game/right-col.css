@@ -1,0 +1,353 @@
+/* ============== 右栏 ============== */
+.equip-list {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.equip-slot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  font-size: var(--text-xs);
+  transition: all var(--t-fast);
+}
+
+.equip-slot:hover {
+  border-color: var(--line-2);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.equip-slot-name {
+  color: var(--paper-3);
+  letter-spacing: 0.2em;
+}
+
+.equip-slot-value {
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+  text-align: right;
+}
+
+.equip-slot.is-empty .equip-slot-value {
+  color: var(--paper-5);
+}
+
+.equip-slot.is-equipped {
+  border-color: var(--gold-2);
+  background: rgba(212, 168, 88, 0.1);
+}
+
+.equip-slot.is-equipped .equip-slot-name {
+  color: var(--gold-2);
+}
+
+.equip-slot.is-equipped .equip-slot-value {
+  color: var(--gold-1);
+}
+
+/* 快捷功能区 */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+
+.quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: var(--sp-4) var(--sp-3);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-3);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+  transition: all var(--t-fast);
+  cursor: pointer;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.quick-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(212, 168, 88, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.quick-btn span {
+  font-size: var(--text-xl);
+  color: var(--gold-2);
+  line-height: 1;
+}
+
+.quick-btn em {
+  font-size: var(--text-xs);
+  font-style: normal;
+  color: var(--paper-2);
+  letter-spacing: 0.2em;
+}
+
+.quick-btn:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold-2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.quick-btn:hover em {
+  color: var(--gold-1);
+}
+
+.quick-btn.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quick-btn.is-disabled:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--line-1);
+}
+
+/* 快捷栏空状态 */
+.quick-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--paper-4);
+  font-size: var(--text-xs);
+  padding: var(--sp-3);
+  font-family: var(--font-deco);
+  letter-spacing: 0.15em;
+}
+
+/* 快捷栏编辑按钮 */
+.card-header-action {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  color: var(--paper-2);
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.card-header-action:hover {
+  color: var(--gold-1);
+  border-color: var(--line-2);
+}
+
+/* 快捷栏编辑面板 */
+.quickbar-edit-panel {
+  padding: var(--sp-3);
+}
+
+.quickbar-edit-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  margin-bottom: var(--sp-3);
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.quickbar-edit-hint {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  margin-bottom: var(--sp-3);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.quickbar-edit-section-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  color: var(--gold-2);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding-left: var(--sp-1);
+}
+
+.quickbar-edit-selected {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  padding: var(--sp-2);
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px dashed var(--line-1);
+  border-radius: var(--r-2);
+  min-height: 60px;
+}
+
+.quickbar-edit-empty {
+  text-align: center;
+  color: var(--paper-4);
+  font-size: var(--text-xs);
+  padding: var(--sp-4);
+  font-style: italic;
+}
+
+.quickbar-selected-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(212, 168, 88, 0.06);
+  border: 1px solid rgba(212, 168, 88, 0.2);
+  border-radius: var(--r-2);
+  cursor: grab;
+  transition: all var(--t-fast);
+  user-select: none;
+}
+
+.quickbar-selected-item:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold-3);
+}
+
+.quickbar-selected-item.is-dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.quickbar-selected-handle {
+  color: var(--paper-4);
+  font-size: var(--text-sm);
+  cursor: grab;
+  padding: 0 2px;
+}
+
+.quickbar-selected-glyph {
+  font-size: var(--text-md);
+  color: var(--gold-2);
+  font-family: var(--font-deco);
+  min-width: 24px;
+  text-align: center;
+}
+
+.quickbar-selected-name {
+  flex: 1;
+  color: var(--paper-1);
+  font-size: var(--text-sm);
+}
+
+.quickbar-selected-remove {
+  color: var(--paper-4);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+  transition: all var(--t-fast);
+}
+
+.quickbar-selected-remove:hover {
+  color: var(--crimson);
+  background: rgba(200, 80, 80, 0.1);
+}
+
+.drag-placeholder {
+  height: 36px;
+  border: 2px dashed var(--gold-3);
+  border-radius: var(--r-2);
+  background: rgba(212, 168, 88, 0.05);
+  margin: 0;
+}
+
+.quickbar-edit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.quickbar-edit-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.quickbar-edit-item:hover {
+  border-color: var(--line-2);
+  background: var(--gold-soft);
+}
+
+.quickbar-edit-item.is-selected {
+  border-color: var(--gold-2);
+  background: var(--gold-soft);
+}
+
+.quickbar-edit-item-glyph {
+  font-size: var(--text-lg);
+  color: var(--gold-2);
+  font-family: var(--font-deco);
+  min-width: 24px;
+  text-align: center;
+}
+
+.quickbar-edit-item-name {
+  flex: 1;
+  color: var(--paper-1);
+  font-size: var(--text-sm);
+}
+
+.quickbar-edit-item-check {
+  color: var(--gold-1);
+  font-size: var(--text-md);
+}
+
+.quickbar-edit-item:not(.is-selected) .quickbar-edit-item-check {
+  color: var(--paper-5);
+}
+
+.quickbar-edit-actions {
+  display: flex;
+  gap: var(--sp-2);
+  justify-content: center;
+}
+
+.quickbar-edit-btn {
+  padding: var(--sp-2) var(--sp-4);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  color: var(--paper-1);
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.quickbar-edit-btn:hover {
+  border-color: var(--line-2);
+  color: var(--gold-1);
+}
+
+.quickbar-edit-btn.is-primary {
+  background: var(--gold-soft);
+  border-color: var(--gold-2);
+  color: var(--gold-1);
+}
+

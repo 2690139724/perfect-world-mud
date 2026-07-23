@@ -1,0 +1,234 @@
+/* ============== 小地图（MUD 文本网格版） ============== */
+/* 替代原 Canvas 渲染，符合用户硬约束：MUD-style text grid maps */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+/* MiniMap 属右下浮动信息层，z-index:1000 */
+
+#minimap-container {
+  position: fixed;
+  bottom: calc(var(--actionbar-h) + var(--sp-4));
+  right: var(--sp-5);
+  width: 260px;
+  background: var(--glass-3);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  z-index: 1000;
+  box-shadow: var(--shadow-2), 0 0 22px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-serif);
+  animation: fade-in-soft 0.25s ease;
+}
+
+#minimap-container.hidden {
+  display: none;
+}
+
+#minimap-container::before,
+#minimap-container::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--gold-2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#minimap-container::before {
+  top: 4px; left: 4px;
+  border-right: none; border-bottom: none;
+}
+
+#minimap-container::after {
+  bottom: 4px; right: 4px;
+  border-left: none; border-top: none;
+}
+
+.minimap-header {
+  padding: var(--sp-2) var(--sp-3);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent);
+  border-bottom: 1px solid var(--line-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.minimap-title {
+  font-family: var(--font-deco);
+  font-size: var(--text-xs);
+  color: var(--gold-1);
+  letter-spacing: 0.3em;
+}
+
+.minimap-close {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--paper-3);
+  cursor: pointer;
+  font-size: var(--text-md);
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  border-radius: var(--r-1);
+  transition: all var(--t-fast);
+}
+
+.minimap-close:hover {
+  color: var(--crimson);
+  border-color: var(--crimson-soft);
+  background: var(--crimson-soft);
+}
+
+.minimap-body {
+  padding: var(--sp-3);
+}
+
+.minimap-zone-name {
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--paper-0);
+  text-align: center;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--sp-1);
+}
+
+.minimap-zone-name.minimap-zone-unknown {
+  color: var(--paper-3);
+  font-style: italic;
+  padding: var(--sp-4) 0;
+}
+
+.minimap-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--text-2xs);
+  color: var(--paper-3);
+  margin-bottom: var(--sp-3);
+}
+
+.minimap-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.minimap-progress-fill {
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-1));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* MUD 文本网格 —— 3x3 布局 */
+.minimap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-bottom: var(--sp-3);
+}
+
+.minimap-cell {
+  padding: var(--sp-2);
+  text-align: center;
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-1);
+  background: rgba(0, 0, 0, 0.25);
+  font-size: var(--text-2xs);
+  line-height: 1.4;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all var(--t-fast);
+}
+
+.minimap-cell-icon {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  line-height: 1;
+}
+
+.minimap-cell-label {
+  color: var(--paper-3);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* 状态变体 */
+.minimap-cell.current {
+  border-color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.18);
+  box-shadow: inset 0 0 12px rgba(212, 168, 88, 0.18);
+}
+.minimap-cell.current .minimap-cell-icon {
+  color: var(--gold-1);
+  animation: minimap-pulse 1.5s ease-in-out infinite;
+}
+.minimap-cell.current .minimap-cell-label {
+  color: var(--gold-1);
+  font-weight: bold;
+}
+
+.minimap-cell.discovered {
+  border-color: var(--gold-3);
+  background: rgba(212, 168, 88, 0.06);
+}
+.minimap-cell.discovered.navigable {
+  cursor: pointer;
+}
+.minimap-cell.discovered.navigable:hover {
+  border-color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.14);
+  transform: scale(1.05);
+}
+.minimap-cell.discovered .minimap-cell-icon { color: var(--gold-2); }
+.minimap-cell.discovered .minimap-cell-label { color: var(--paper-1); }
+
+.minimap-cell.unknown {
+  border-color: var(--line-1);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--paper-4);
+}
+.minimap-cell.unknown .minimap-cell-icon { color: var(--paper-4); }
+.minimap-cell.unknown .minimap-cell-label { color: var(--paper-4); }
+
+.minimap-cell.empty {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* 图例 */
+.minimap-legend {
+  display: flex;
+  justify-content: space-around;
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--line-1);
+  font-size: var(--text-2xs);
+  color: var(--paper-3);
+}
+
+.minimap-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.minimap-legend-mark {
+  font-family: var(--font-deco);
+  color: var(--gold-2);
+}
+
+@keyframes minimap-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(0.9); }
+}

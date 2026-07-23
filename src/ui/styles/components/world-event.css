@@ -1,0 +1,228 @@
+/* ============== 世界事件弹窗 ============== */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+/* 世界事件属于 event 层级，z-index:2500 */
+
+#world-event-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2500;
+  font-family: var(--font-serif);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fade-in-soft 0.3s ease;
+}
+
+.world-event-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(20, 18, 26, 0.96) 0%, rgba(28, 25, 34, 0.96) 100%);
+  border: 2px solid var(--gold-3);
+  border-radius: var(--r-3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-3), 0 0 40px rgba(212, 168, 88, 0.18);
+  animation: world-event-appear 0.4s ease-out;
+}
+
+.world-event-card::before,
+.world-event-card::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--gold-2);
+  pointer-events: none;
+}
+
+.world-event-card::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+}
+
+.world-event-card::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+}
+
+/* 危险度边框变体 —— 沿用水墨仙侠色系 */
+.world-event-card.danger-safe    { border-color: var(--jade); box-shadow: var(--shadow-3), 0 0 40px rgba(90, 153, 106, 0.3); }
+.world-event-card.danger-low     { border-color: #7ba85a; box-shadow: var(--shadow-3), 0 0 40px rgba(123, 168, 90, 0.25); }
+.world-event-card.danger-medium  { border-color: var(--gold-2); box-shadow: var(--shadow-3), 0 0 40px rgba(212, 168, 88, 0.3); }
+.world-event-card.danger-high    { border-color: #c47a3a; box-shadow: var(--shadow-3), 0 0 40px rgba(196, 122, 58, 0.35); }
+.world-event-card.danger-deadly  { border-color: var(--crimson); box-shadow: var(--shadow-3), 0 0 40px rgba(197, 74, 74, 0.4); }
+
+.world-event-header {
+  padding: var(--sp-6);
+  border-bottom: 1px solid var(--line-1);
+  position: relative;
+}
+
+.world-event-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.world-event-title {
+  margin: 0;
+  font-family: var(--font-deco);
+  font-size: var(--text-lg);
+  color: var(--gold-1);
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 10px rgba(212, 168, 88, 0.35);
+}
+
+.world-event-danger {
+  padding: 4px 12px;
+  border-radius: var(--r-3);
+  font-size: var(--text-xs);
+  background: rgba(212, 168, 88, 0.12);
+  color: var(--gold-2);
+  border: 1px solid var(--gold-3);
+  letter-spacing: 0.15em;
+  font-family: var(--font-deco);
+}
+
+.world-event-type {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  letter-spacing: 0.1em;
+}
+
+.world-event-desc {
+  padding: var(--sp-5) var(--sp-6);
+  color: var(--paper-1);
+  font-size: var(--text-sm);
+  line-height: 1.85;
+  text-indent: 2em;
+}
+
+.world-event-choices {
+  padding: var(--sp-4) var(--sp-6) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.world-event-choices-label {
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+}
+
+.event-choice-btn {
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  background: rgba(212, 168, 88, 0.05);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-2);
+  color: var(--paper-1);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--t-normal);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-serif);
+}
+
+.event-choice-btn:hover {
+  transform: translateX(6px);
+  border-color: var(--gold-2);
+  background: rgba(212, 168, 88, 0.12);
+  box-shadow: 0 0 14px rgba(212, 168, 88, 0.18);
+}
+
+.event-choice-btn:active {
+  transform: translateX(3px);
+}
+
+.event-choice-icon {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-2);
+  flex-shrink: 0;
+}
+
+.event-choice-text {
+  flex: 1;
+  line-height: 1.6;
+}
+
+.event-choice-rate {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  letter-spacing: 0.1em;
+  font-family: var(--font-deco);
+}
+
+/* 事件结果 */
+.world-event-outcome-effects {
+  padding: 0 var(--sp-6) var(--sp-4);
+}
+
+.world-event-effects-label {
+  font-size: var(--text-xs);
+  color: var(--paper-3);
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+}
+
+.world-event-effect-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.world-event-effect {
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 2px solid var(--gold-3);
+  border-radius: 0 var(--r-1) var(--r-1) 0;
+  font-size: var(--text-sm);
+  color: var(--paper-1);
+}
+
+.world-event-effect.positive { border-left-color: var(--jade); color: #8fc99e; }
+.world-event-effect.negative { border-left-color: var(--crimson); color: #e08080; }
+
+.world-event-close-btn {
+  width: 100%;
+  padding: var(--sp-4);
+  background: linear-gradient(135deg, var(--gold-3), var(--gold-1));
+  border: 1px solid var(--gold-1);
+  border-radius: var(--r-2);
+  color: var(--ink-0);
+  font-size: var(--text-md);
+  font-weight: bold;
+  cursor: pointer;
+  font-family: var(--font-deco);
+  letter-spacing: 0.3em;
+  transition: all var(--t-fast);
+}
+
+.world-event-close-btn:hover {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold-1));
+  box-shadow: 0 0 20px rgba(212, 168, 88, 0.45);
+}
+
+@keyframes world-event-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

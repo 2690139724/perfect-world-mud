@@ -1,0 +1,215 @@
+/* ============== 状态监控面板 ============== */
+/* 层级规范：overlay(1000) / modal(2000) / event(2500) / toast(3000) */
+/* StatusMonitor 位于右上角，z-index:1000 属于浮动信息层 */
+
+.status-monitor {
+  position: fixed;
+  top: calc(var(--topbar-h) - 12px);
+  right: var(--sp-3);
+  width: 280px;
+  background: linear-gradient(180deg, var(--glass-3), rgba(15, 10, 5, 0.98));
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-3);
+  padding: var(--sp-3);
+  z-index: 1000;
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  color: var(--paper-1);
+  box-shadow: var(--shadow-2), 0 0 18px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.status-monitor.hidden {
+  display: none;
+}
+
+/* ===== 核心状态区 ===== */
+.status-core {
+  border-bottom: 1px solid var(--line-1);
+  padding-bottom: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+
+.status-row:last-child {
+  margin-bottom: 0;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: var(--sp-1) var(--sp-1);
+  background: var(--glass-1);
+  border-radius: var(--r-2);
+  transition: all var(--t-fast);
+}
+
+.status-item:hover {
+  background: var(--glass-2);
+}
+
+.stat-icon {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-2);
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: var(--text-2xs);
+  color: var(--paper-3);
+  margin-bottom: 2px;
+  letter-spacing: 0.1em;
+}
+
+.stat-value {
+  font-size: var(--text-sm);
+  font-weight: bold;
+  color: var(--gold-1);
+  font-family: var(--font-deco);
+}
+
+.status-combat .stat-value {
+  color: var(--crimson);
+}
+
+.status-cultivation .stat-value {
+  color: var(--azure);
+}
+
+/* ===== 目标追踪区 ===== */
+.status-targets {
+  border-bottom: 1px solid var(--line-1);
+  padding-bottom: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+
+.target-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-deco);
+  font-weight: bold;
+  color: var(--gold-1);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+}
+
+.target-icon {
+  color: var(--gold-2);
+}
+
+.target-list {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.target-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.target-list::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 2px;
+}
+
+.target-item {
+  padding: var(--sp-1) var(--sp-2);
+  background: var(--glass-1);
+  border-radius: var(--r-2);
+  margin-bottom: var(--sp-1);
+  font-size: var(--text-2xs);
+}
+
+.target-item:last-child {
+  margin-bottom: 0;
+}
+
+.target-empty {
+  color: var(--paper-3);
+  text-align: center;
+  font-family: var(--font-deco);
+  letter-spacing: 0.2em;
+}
+
+.target-name {
+  color: var(--paper-0);
+  margin-bottom: var(--sp-1);
+}
+
+.target-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.target-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--glass-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.target-progress-fill {
+  height: 100%;
+  width: var(--progress-pct, 0%);
+  background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+  transition: width var(--t-normal);
+}
+
+.target-progress-text {
+  font-size: var(--text-2xs);
+  color: var(--paper-3);
+  font-family: var(--font-deco);
+}
+
+/* ===== 效果图标区 ===== */
+.status-effects {
+  min-height: 24px;
+}
+
+.effects-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+.effect-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-2);
+  border-radius: var(--r-1);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.effect-icon:hover {
+  background: var(--glass-3);
+  transform: scale(1.1);
+}
+
+.effect-icon.buff {
+  border: 1px solid var(--jade);
+  color: var(--jade);
+}
+
+.effect-icon.debuff {
+  border: 1px solid var(--crimson);
+  color: var(--crimson);
+}

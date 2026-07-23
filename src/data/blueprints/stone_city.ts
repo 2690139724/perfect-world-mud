@@ -1,0 +1,373 @@
+import { ZoneBlueprintDB, IZoneBlueprint } from './BlueprintDB';
+import { TerrainType } from '../../domain/entities/Room';
+
+const StoneCityBlueprint: IZoneBlueprint = {
+  id: 'stone_city',
+  name: '石城',
+  type: 'city',
+  description: '石族祖地，一座以巨石筑成的古老城镇。城墙由万斤巨石垒砌，城门上刻着远古符文，散发着淡淡的灵光。城中石屋鳞次栉比，街道由青石板铺就，处处透着古朴与厚重。',
+  recommendedLevel: 0,
+  entrances: [
+    { direction: '北', targetZoneId: 'wasteland', targetRoomId: 'wasteland_gate' }
+  ],
+  rooms: [
+    {
+      id: 'stone_city_gate',
+      name: '石城城门',
+      description: '高达十丈的巨石城门，由整块玄铁石铸就。城门两侧各立一尊石人雕像，高达三丈，手持石斧，栩栩如生。门上刻满了古老的符文，最显眼的是一个巨大的"石"字，散发着镇压万物的气息。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '内', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '南', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '外', targetId: 'wasteland_gate', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'wasteland_gate', condition: undefined, isHidden: false, travelCost: 0 }
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['liu_old'],
+      isSafeZone: true,
+      details: [
+        { id: 'gate_runes', name: '石族符文', description: '城门上的符文是石族先祖所刻，蕴含着远古的力量。这些符文以"石"为根基，演化出各种变化，是石族传承的重要组成部分。据说完整的石族符文可引动天地之力，镇杀强敌。', type: 'lore' },
+        { id: 'gate_statues', name: '石人守卫', description: '两尊石人并非普通雕像，而是石族先祖以秘法炼制的守护傀儡。它们日夜镇守城门，一旦有外敌入侵，便会苏醒过来，挥动石斧，力敌千军。', type: 'environment' },
+        { id: 'gate_shadow', name: '城门阴影', description: '城门底部有一片永不消散的阴影，据说那是远古时期一场大战留下的痕迹。石族的老一辈说，那阴影中封印着一头太古凶兽的残魂。', type: 'secret', hint: '探查阴影...', requiredRealm: 3 },
+        { id: 'gate_bell', name: '镇城钟', description: '城门上方悬挂着一口巨大的青铜钟，名为"镇城钟"。钟声响起时，可驱散邪祟，警示全城。钟身上刻满了太古符文。', type: 'environment' },
+      ],
+    },
+    {
+      id: 'stone_city_plaza',
+      name: '石城广场',
+      description: '青石铺就的宽阔广场，是石城的中心。四周店铺林立，人来人往，热闹非凡。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 25,
+      exits: [
+        { direction: '北', targetId: 'stone_city_temple', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '南', targetId: 'stone_city_gate', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '西', targetId: 'stone_city_residential', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东南', targetId: 'stone_city_inn', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '西南', targetId: 'stone_city_bank', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北偏西', targetId: 'stone_city_shi_family', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '西偏南', targetId: 'stone_city_xianglai_lou', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [{ resourceId: 'spring_water', amount: 99, respawnTime: 60, harvestDifficulty: 1 }],
+      npcs: ['jiu_lao', 'sun_tou'],
+      isSafeZone: true,
+      details: [
+        { id: 'plaza_stele', name: '祖碑', description: '祖碑高达九丈，由一块完整的星辰石铸就。碑上刻着石族自太古以来的历代强者，从第一代石王到如今的石族族长，每一个名字都散发着淡淡的光辉。触摸祖碑，可感受到石族先辈的意志。', type: 'environment' },
+        { id: 'plaza_well', name: '灵泉井', description: '广场角落有一口古井，名为"灵泉"。泉水甘甜清凉，蕴含着微弱的灵力。石城的孩童常在井边玩耍，据说饮用灵泉水可强身健体。', type: 'interactive', hint: '汲取泉水...', interactionResult: '你从井中汲取了一杯灵泉水，入口甘甜，浑身暖洋洋的，似乎精神了不少。', rewardItemId: '灵泉水', rewardAmount: 1 },
+        { id: 'plaza_well_secret', name: '古井低语', description: '夜深人静时，你独自来到古井旁。井底传来若有若无的低语声，似乎在呼唤某个名字。借着月光，你看到井壁上刻着一行模糊的小字："火皇二十三年，柳卫战死于此。"', type: 'secret', hint: '细听井底低语...', requiredRealm: 0 },
+        { id: 'plaza_ground', name: '青石板', description: '广场的青石板并非普通石头，而是从百断山深处运来的"玄青石"。这种石头坚硬无比，而且能吸收天地灵气，是修炼的绝佳辅助材料。', type: 'environment' },
+        { id: 'plaza_altar', name: '祭台', description: '广场边缘有一座圆形祭台，是石族祭祀先祖和天地的地方。每月十五，石族会在此举行盛大的祭祀仪式，祈求风调雨顺，族人平安。', type: 'environment' },
+        { id: 'plaza_performer', name: '卖艺人', description: '广场一角，一位老者正在表演吞火绝技，周围围满了看热闹的百姓。老者技艺高超，口中喷出的火焰化作各种形状，引得阵阵喝彩。', type: 'interactive', hint: '观看表演...', interactionResult: '你驻足观看老者的表演，他的吞火绝技令人叹为观止。周围百姓纷纷扔出铜钱打赏。', rewardItemId: '铜币', rewardAmount: 5 },
+        { id: 'plaza_fortune', name: '算命先生', description: '广场边上，一位白发苍苍的算命先生坐在卦摊后，面前摆着签筒和罗盘。他自称能预测吉凶、指点迷津，不少人前来问卦。', type: 'interactive', hint: '求签问卦...', interactionResult: '算命先生帮你算了一卦，说道："阁下骨骼清奇，乃修仙之材。近期当有机缘，切记把握。"', rewardItemId: '运势签', rewardAmount: 1 },
+        { id: 'plaza_snack', name: '小吃摊', description: '广场角落有一个小吃摊，摊主正在叫卖兽肉包子和灵米粥。香气扑鼻，引来不少食客。', type: 'interactive', hint: '购买小吃...', interactionResult: '你买了一个兽肉包子，咬了一口，肉质鲜嫩，味道鲜美。', rewardItemId: '兽肉包子', rewardAmount: 1 },
+        { id: 'plaza_child', name: '玩耍孩童', description: '一群孩童正在广场上追逐嬉戏，他们玩着滚铁环、踢毽子的游戏，欢声笑语不断。', type: 'interactive', hint: '与孩童玩耍...', interactionResult: '你加入孩童们的游戏，他们围着你转圈，欢声笑语充满了整个广场。', rewardItemId: '童趣', rewardAmount: 1 },
+      ],
+    },
+    {
+      id: 'stone_city_market',
+      name: '石城集市',
+      description: '喧闹的集市，是石城最繁华的地方。各种摊贩叫卖着灵药、骨器、符文石与奇珍异宝。空气中弥漫着药香、兽骨的腥味和符文石的灵气。这里是荒域各方修士交易的重要场所。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 30,
+      exits: [
+        { direction: '西', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_blacksmith', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'stone_city_bookstore', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东北', targetId: 'stone_city_tailor', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '西北', targetId: 'stone_city_inn', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['xiao_cui', 'wang_pangzi', 'a_xiu'],
+      isSafeZone: true,
+      details: [
+        { id: 'market_herb', name: '药草摊', description: '一个摆满各种荒域灵药的摊位，有青鳞草、血灵花、凝神草等。摊主是一位白发苍苍的老药农，据说他年轻时曾深入百断山采药，见过不少奇珍异草。', type: 'interactive', hint: '查看药草...', shopId: 'stone_city_market' },
+        { id: 'market_bone', name: '骨器摊', description: '各种凶兽骸骨制成的饰品和法器琳琅满目。有狼骨项链、蛇骨匕首、虎骨护身符等。最引人注目的是一块刻着符文的龙骨碎片，散发着淡淡的威压。', type: 'interactive', hint: '查看骨器...', shopId: 'stone_city_market' },
+        { id: 'market_rune', name: '符文石', description: '一个卖符文石的摊位，各种颜色的石头上刻着不同的符文。有攻击符文、防御符文、加速符文等。据说这些符文石是石族符文师亲手刻画的。', type: 'interactive', hint: '挑选符文石...', interactionResult: '你从一堆符文石中选出一块刻着"力"字的石头，入手温润，似乎蕴含着不俗的力量。', rewardItemId: '符文石·力', rewardAmount: 1 },
+        { id: 'market_alley', name: '黑市入口', description: '集市后方有一条阴暗的小巷，门口站着一个面无表情的黑衣人。据说里面是石城的黑市，出售各种见不得光的东西，包括凶兽血肉、禁术残卷等。', type: 'secret', hint: '走入黑市...', requiredRealm: 1 },
+        { id: 'market_fur', name: '皮毛摊', description: '各种凶兽皮毛制成的披风、护腕和靴子。有赤焰豹皮、冰霜狼皮、疾风鹰羽等。这些皮毛不仅保暖，还能抵御一定的灵力攻击。', type: 'interactive', hint: '翻看皮毛...', shopId: 'stone_city_market' },
+        { id: 'market_spice', name: '香料铺', description: '一个专卖各种灵草香料的店铺，香气四溢。有凝神香、静心香、引兽香等。这些香料不仅能净化空气，还有助于修炼。', type: 'interactive', hint: '闻闻香料...', interactionResult: '你闻到一股清幽的香气，精神为之一振，似乎头脑都清醒了许多。', rewardItemId: '凝神香', rewardAmount: 1 },
+        { id: 'market_tea', name: '茶馆', description: '集市一角有一间茶馆，里面坐满了歇脚的修士和商人。茶博士吆喝着，端上一壶壶灵茶。茶馆里人声鼎沸，议论着各种消息。', type: 'interactive', hint: '进去喝茶...', interactionResult: '你在茶馆里坐下，要了一壶灵茶。茶香袅袅，让人心旷神怡。旁边几位修士正在谈论百断山最近的异动。', rewardItemId: '灵茶', rewardAmount: 1 },
+        { id: 'market_gambler', name: '赌坊', description: '一个简陋的赌坊，里面摆着几张赌桌，骰子声和吆喝声此起彼伏。不少修士在这里碰运气，希望能赢些灵石。', type: 'interactive', hint: '进去赌一把...', interactionResult: '你试着赌了一把，运气不错，赢了一些灵石。', rewardItemId: '灵石', rewardAmount: 10 },
+        { id: 'market_auction', name: '拍卖会', description: '集市中央有一个临时搭建的拍卖台，一位拍卖师正在主持一场小型拍卖会。台上摆放着各种珍品，吸引了不少买家。', type: 'interactive', hint: '参加拍卖会...', interactionResult: '你参加了拍卖会，虽然没有拍到心仪的物品，但见识了不少奇珍异宝。', rewardItemId: '拍卖邀请函', rewardAmount: 1 },
+      ],
+    },
+    {
+      id: 'stone_city_blacksmith',
+      name: '石族铁匠铺',
+      description: '叮叮当当的敲打声不绝于耳。铁匠铺里炉火正旺，一个壮汉赤膊挥锤，火星四溅。墙上挂满了各种武器和护甲，大多是用凶兽骸骨和玄铁打造的。这里是石城最好的铁匠铺，石族的年轻修士常来这里打造兵器。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '西', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 }
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['tie_zhu'],
+      isSafeZone: true,
+      details: [
+        { id: 'smith_furnace', name: '灵火熔炉', description: '铁匠铺的熔炉并非普通火焰，而是用灵石燃烧的"灵火"。灵火温度极高，可熔化大部分金属，是锻造神兵利器的必备之物。', type: 'environment' },
+        { id: 'smith_anvil', name: '玄铁砧', description: '巨大的铁砧是用天外玄铁铸就的，重达万斤。无论多么坚硬的材料放在上面，都能稳稳当当。据说这玄铁砧是石族先祖从太古战场带回来的。', type: 'lore' },
+        { id: 'smith_weapons', name: '兵器架', description: '墙上的兵器架上摆满了各式武器，有石锤、骨刀、铁剑等。其中最显眼的是一把长达丈许的石矛，矛尖闪烁着寒光，散发着凶煞之气。', type: 'environment' },
+        { id: 'smith_back', name: '锻房密室', description: '铁匠铺后面有一间密室，是铁匠打造精品兵器的地方。据说密室里藏着一块"星辰铁"，是打造神兵的顶级材料。', type: 'secret', hint: '进入密室...', requiredRealm: 2 },
+      ],
+    },
+    {
+      id: 'stone_city_temple',
+      name: '石族祭坛',
+      description: '石城最神圣的地方，一座年代久远的祭坛。四根高达八丈的石柱支撑着穹顶，柱身上刻满了密密麻麻的太古铭文。祭坛中央摆放着一块温润的玉璧，散发着柔和的灵光。这里是石族传承的核心之地。',
+      terrain: TerrainType.RUIN,
+      spiritDensity: 50,
+      exits: [
+        { direction: '南', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 }
+      ],
+      monsters: [],
+      resources: [{ resourceId: 'ancient_jade', amount: 1, respawnTime: 86400, harvestDifficulty: 5 }],
+      npcs: ['night_watcher'],
+      isSafeZone: true,
+      details: [
+        { id: 'temple_pillar', name: '太古石柱', description: '四根石柱上的铭文是石族最古老的传承，记载着石族的起源和修炼法门。据说完整解读这些铭文，可领悟石族至高功法"石族真经"。', type: 'lore' },
+        { id: 'temple_altar', name: '传承玉璧', description: '祭坛中央的玉璧是石族的至宝，名为"补天玉"。它蕴含着远古的道韵，是石族历代族长传承记忆的载体。触摸玉璧，有可能获得先祖的传承。', type: 'interactive', hint: '触摸玉璧...', interactionResult: '玉璧传来一股温热，一道古老的信息流涌入你的脑海。你似乎看到了石族先祖在太古时期征战的场景，感悟颇深。', rewardItemId: '补天玉碎片', rewardAmount: 1, requiredRealm: 3 },
+        { id: 'temple_statue', name: '石祖神像', description: '祭坛后方供奉着一尊巨大的神像，是石族的始祖"石祖"。石祖面目庄严，双手环抱，仿佛在守护着整个石城。神像底座刻着一行字："石之一族，万古不灭。"', type: 'lore' },
+        { id: 'temple_hidden', name: '密室入口', description: '祭坛底部有一个隐藏的机关，通向地下深处的密室。据说密室里存放着石族最珍贵的传承和宝藏，包括完整的石族真经和各种至宝。', type: 'secret', hint: '寻找机关...', requiredRealm: 5 },
+      ],
+    },
+    {
+      id: 'stone_city_residential',
+      name: '石族居住区',
+      description: '石城的居民区，一座座石屋错落有致。这里是石族族人生活的地方，石屋由整齐的石块砌成，屋顶覆盖着青石板。家家户户门前都种着一些灵药或蔬菜，充满了生活气息。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 15,
+      exits: [
+        { direction: '东', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'stone_city_hill', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东南', targetId: 'stone_city_bank', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东北', targetId: 'stone_city_bookstore', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['old_village_head', 'zhang_shen', 'ergouzi'],
+      isSafeZone: true,
+      details: [
+        { id: 'residence_houses', name: '石屋', description: '石屋的建造工艺十分精湛，石块之间严丝合缝，不需要任何黏合剂。据说这种建造方法是石族先祖从太古传承下来的，可抵御狂风暴雨和凶兽袭击。', type: 'environment' },
+        { id: 'residence_garden', name: '灵药园', description: '不少石屋门前都有一小块园地，种着各种灵药。有疗伤的血灵草、提神的凝香草、解毒的清灵花等。这些灵药是石族族人日常修炼和疗伤的重要资源。', type: 'interactive', hint: '采集灵药...', interactionResult: '你在一处灵药园里小心地采集了几株血灵草，这些草药散发着淡淡的红光，是疗伤的佳品。', rewardItemId: '血灵草', rewardAmount: 1 },
+        { id: 'residence_street', name: '青石板路', description: '居民区的街道由光滑的青石板铺成，路面干净整洁。孩子们在巷弄间追逐嬉戏，老人们坐在门口晒太阳、聊天，一派祥和景象。', type: 'environment' },
+        { id: 'residence_tree', name: '祖树', description: '居民区中央有一棵巨大的古树，名为"石祖树"。据说这棵树是石祖亲手种下的，已经生长了数万年。树身上刻着古老的符文，是石族的守护神树。', type: 'lore' },
+      ],
+    },
+    {
+      id: 'stone_city_hill',
+      name: '石城后山',
+      description: '城后的一座小山丘，古木参天，灵气浓郁。这里是石城年轻修士修炼和历练的地方。山中生长着各种灵药，偶尔也会有灵狐等小兽出没。据说夜晚常有灵光闪烁，是天地灵气汇聚之地。',
+      terrain: TerrainType.FOREST,
+      spiritDensity: 40,
+      exits: [
+        { direction: '南', targetId: 'stone_city_residential', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'stone_city_cave', condition: '需化灵境', isHidden: true, travelCost: 0 }
+      ],
+      monsters: [
+        { monsterId: 'spirit_fox', minCount: 1, maxCount: 2, spawnWeight: 100, respawnTime: 300 }
+      ],
+      resources: [{ resourceId: 'spirit_herb', amount: 5, respawnTime: 600, harvestDifficulty: 2 }],
+      npcs: ['caiyao_chen', 'wang_xiaoer'],
+      isSafeZone: false,
+      details: [
+        { id: 'hill_trees', name: '万年古树', description: '几棵高达数十丈的古树，树干粗壮，需要十人合抱。这些古树已经生长了数万年，是荒域少见的灵木。据说古树的树叶可入药，是炼制疗伤丹药的珍贵材料。', type: 'environment' },
+        { id: 'hill_clearing', name: '修炼空地', description: '林间有一小块平坦的空地，地面上刻着淡淡的阵纹。这是石城年轻修士常来修炼的地方，阵纹可汇聚天地灵气，加速修炼。', type: 'environment' },
+        { id: 'hill_herbs', name: '灵药丛', description: '一片长满灵药的灌木丛，有凝神草、血灵花、冰魄草等。这些灵药生长在灵气充沛的地方，品质比居民区的要好得多。', type: 'interactive', hint: '采集灵药...', interactionResult: '你小心翼翼地采集了几株凝神草，这些草药散发着淡淡的清香，有助于凝神静气，提升修炼效率。', rewardItemId: '凝神草', rewardAmount: 1 },
+        { id: 'hill_nest', name: '灵狐巢穴', description: '一棵大树上有一个鸟巢，里面似乎有什么东西在发光。仔细一看，原来是一只灵狐的巢穴，里面有几颗灵狐产下的灵珠。', type: 'secret', hint: '爬上树查看...', requiredRealm: 1 },
+      ],
+    },
+    {
+      id: 'stone_city_inn',
+      name: '石城客栈',
+      description: '一座两层的木质建筑，门口挂着"客来居"的招牌。客栈内干净整洁，摆放着几张桌椅，空气中弥漫着灵酒和饭菜的香气。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '西', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['wang_youfu'],
+      isSafeZone: true,
+      details: [
+        { id: 'inn_sign', name: '客来居', description: '客栈门口的招牌，已经有些年头了，但字迹依然清晰。招牌是用一块灵木制成的，据说能吸引客人。', type: 'environment' },
+        { id: 'inn_stairs', name: '木楼梯', description: '通往二楼客房的木楼梯，踩上去会发出轻微的声响。二楼有十几间客房，每间都很干净。', type: 'environment' },
+        { id: 'inn_kitchen', name: '后厨', description: '客栈的后厨，里面传来炒菜的声音和食物的香气。据说厨子是从火皇城请来的，手艺不错。', type: 'environment' },
+      ],
+    },
+    {
+      id: 'stone_city_bank',
+      name: '石城宝阁',
+      description: '一座坚固的石砌建筑，门口站着两个护卫。宝阁内宽敞明亮，柜台后面是一排排的藏宝库，存放着各种灵晶和珍贵物品。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '西', targetId: 'stone_city_residential', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['chen_suanpan'],
+      isSafeZone: true,
+      details: [
+        { id: 'bank_vault', name: '藏宝库', description: '宝阁深处的藏宝库，由厚重的铁门和阵法双重把守。里面存放着大量的灵晶和珍贵物品，是石城最安全的地方。', type: 'lore' },
+        { id: 'bank_counters', name: '柜台', description: '宝阁的柜台，用坚固的灵木制成。柜台上放着算盘和账本，记录着每一笔灵石交易。', type: 'environment' },
+        { id: 'bank_guard', name: '护卫', description: '宝阁门口的护卫，都是经验丰富的修士。他们负责保护宝阁的安全，防止有人闹事。', type: 'environment' },
+      ],
+    },
+    {
+      id: 'stone_city_tailor',
+      name: '锦绣坊',
+      description: '一间雅致的店铺，墙上挂满了各种灵布和成衣。绣师正在飞针走线，动作熟练。店铺里弥漫着灵布和灵线的气息。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '西', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_blacksmith', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['lin_qiaoshou'],
+      isSafeZone: true,
+      details: [
+        { id: 'tailor_fabric', name: '灵布架', description: '墙上的灵布架，摆满了各种颜色和材质的灵布。有普通的棉布，也有珍贵的灵蚕丝和火蚕丝。', type: 'environment' },
+        { id: 'tailor_sewing', name: '绣架', description: '绣师使用的绣架，是用灵木制成的。上面摆放着各种灵线和绣针。', type: 'environment' },
+        { id: 'tailor_designs', name: '绣样', description: '墙上贴着各种衣服的绣样，有练功服、长袍、披风等。这些绣样都是林绣师亲手设计的。', type: 'lore' },
+      ],
+    },
+    {
+      id: 'stone_city_bookstore',
+      name: '藏经阁',
+      description: '一座古朴的楼阁，书架上摆满了各种古籍和秘籍。空气中弥漫着淡淡的墨香和书卷的气息。阁主正在整理书架，神情专注。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 30,
+      exits: [
+        { direction: '南', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'stone_city_residential', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['mo_xiansheng'],
+      isSafeZone: true,
+      details: [
+        { id: 'bookstore_shelves', name: '藏经架', description: '阁中的藏经架，由珍贵的灵木制成。架上摆满了各种古籍和秘籍，从功法宝术到丹方阵法，应有尽有。', type: 'environment' },
+        { id: 'bookstore_desk', name: '阅经台', description: '阁中角落的阅经台，上面放着笔墨纸砚。墨阁主经常在这里研读古籍和整理秘籍。', type: 'environment' },
+        { id: 'bookstore_windows', name: '窗户', description: '藏经阁的窗户，用薄纱遮挡。阳光透过窗户照进来，给整个阁楼增添了一份静谧的感觉。', type: 'environment' },
+      ],
+    },
+    {
+      id: 'stone_city_cave',
+      name: '石族密洞',
+      description: '后山深处的一处天然溶洞，是石族的秘密修炼之地。洞中幽暗湿润，洞壁上刻满了古老的符文和壁画。洞中灵气浓郁，是修炼的绝佳场所。但洞中也栖息着一些凶物，需要小心应对。',
+      terrain: TerrainType.CAVE,
+      spiritDensity: 60,
+      exits: [
+        { direction: '南', targetId: 'stone_city_hill', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '下', targetId: 'stone_city_cave_deep', condition: undefined, isHidden: false, travelCost: 0 }
+      ],
+      monsters: [
+        { monsterId: 'shadow_bat', minCount: 2, maxCount: 4, spawnWeight: 100, respawnTime: 180 },
+        { monsterId: 'cave_serpent', minCount: 1, maxCount: 1, spawnWeight: 30, respawnTime: 600 }
+      ],
+      resources: [{ resourceId: 'spirit_ore', amount: 3, respawnTime: 1200, harvestDifficulty: 3 }],
+      isSafeZone: false,
+      details: [
+        { id: 'cave_wall', name: '太古壁画', description: '洞壁上的壁画描绘着太古时期的战斗场景，有石族先祖与凶兽厮杀的画面，也有石族与其他种族交战的场景。这些壁画是石族历史的珍贵记录。', type: 'lore' },
+        { id: 'cave_crystal', name: '灵矿石', description: '洞壁上嵌着一些发光的矿石，这些是"灵铁矿"，是炼制法器和武器的重要材料。灵铁矿蕴含着浓郁的灵气，价值不菲。', type: 'interactive', hint: '采集灵矿...', interactionResult: '你用随身携带的工具敲下了一块灵铁矿，入手沉重，散发着淡淡的灵光。', rewardItemId: '灵铁矿', rewardAmount: 1 },
+        { id: 'cave_pool', name: '灵泉', description: '洞顶不断滴落的水珠汇聚成一个小水潭，潭水清澈见底，散发着浓郁的灵气。这是一处天然的灵泉，饮用泉水可提升修为。', type: 'interactive', hint: '饮用灵泉...', interactionResult: '你掬起一捧灵泉水喝下，一股清凉的力量涌入体内，浑身经脉都变得舒畅起来。', rewardItemId: '灵泉水', rewardAmount: 1 },
+        { id: 'cave_passage', name: '隐秘通道', description: '洞壁上有一条狭窄的通道，被乱石掩盖。据说这条通道通向更深的地方，那里有石族先祖留下的传承和宝藏。', type: 'secret', hint: '搬开乱石...', requiredRealm: 2 },
+      ],
+    },
+    {
+      id: 'stone_city_cave_deep',
+      name: '石族秘境',
+      description: '密洞的最深处，是石族最重要的秘境。空气中弥漫着古老的气息，地面上刻着一个巨大的传送阵纹。秘境中央有一座石台，上面放着石族最珍贵的传承。这里是石族历代强者突破和感悟的地方。',
+      terrain: TerrainType.CAVE,
+      spiritDensity: 80,
+      exits: [
+        { direction: '上', targetId: 'stone_city_cave', condition: undefined, isHidden: false, travelCost: 0 }
+      ],
+      monsters: [
+        { monsterId: 'ancient_guardian', minCount: 1, maxCount: 1, spawnWeight: 100, respawnTime: 3600 }
+      ],
+      resources: [
+        { resourceId: 'ancient_bone', amount: 1, respawnTime: 7200, harvestDifficulty: 8 },
+        { resourceId: 'spirit_crystal', amount: 2, respawnTime: 3600, harvestDifficulty: 5 }
+      ],
+      isSafeZone: false,
+      details: [
+        { id: 'cave_deep_array', name: '太古传送阵', description: '地面上巨大的阵纹是一个太古传送阵，可通向荒域的其他地方，甚至传说中的"上界"。但传送阵已经残缺不全，需要珍贵的材料才能修复。', type: 'lore' },
+        { id: 'cave_deep_altar', name: '传承石台', description: '传送阵中央的石台是石族传承的核心。台上放着一块破碎的古骨，是石族先祖"石王"的遗骨。古骨中蕴含着石王的毕生感悟和石族至高功法的传承。', type: 'interactive', hint: '触碰古骨...', interactionResult: '古骨入手冰凉，一股浩瀚的力量涌入你的脑海。你似乎看到了石王征战天下的英姿，感悟到了石族功法的精髓。', rewardItemId: '石王遗骨', rewardAmount: 1, requiredRealm: 5 },
+        { id: 'cave_deep_wall', name: '符文壁', description: '洞壁上刻满了密密麻麻的太古符文，是石族最完整的符文传承。这些符文可演化出各种神通，是石族战力的重要来源。', type: 'lore' },
+        { id: 'cave_deep_secret', name: '虚空裂缝', description: '传送阵中心有一道细微的虚空裂缝，裂缝中传来阵阵恐怖的气息。据说裂缝通向一个未知的空间，那里可能有超越荒域的机缘，也可能有致命的危险。', type: 'secret', hint: '探查裂缝...', requiredRealm: 8 },
+      ],
+    },
+    {
+      id: 'stone_city_shi_family',
+      name: '石府',
+      description: '一座古朴而威严的府邸，是石城城主石万山的居所。府邸以巨石筑成，墙上刻着石族的族徽。石家是石城最古老的家族，世代守护着石城。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 30,
+      exits: [
+        { direction: '南', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '北', targetId: 'stone_city_temple', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['shi_wanshan'],
+      isSafeZone: true,
+      details: [
+        { id: 'shi_hall', name: '石府大厅', description: '石府的议事大厅，由整块巨石雕琢而成。厅内摆放着石桌椅，墙上挂着石族先祖的画像。', type: 'environment' },
+        { id: 'shi_training', name: '演武场', description: '石府后院有一座演武场，石家子弟正在操练。场地中央有一座石桩，是石家祖传的练功器具。', type: 'environment' },
+        { id: 'shi_secret', name: '密室', description: '石府深处有一间密室，里面藏着石家最珍贵的传承——石族符文真解。据说只有石家族长才能进入。', type: 'secret', hint: '探查密室...', requiredRealm: 4 },
+      ],
+    },
+    {
+      id: 'stone_city_li_family',
+      name: '李府',
+      description: '一座精致的府邸，是石城富商李富贵的居所。府邸内种满了各种花草，显得生机勃勃。李家是石城最富有的家族，经营着石城的药材和矿石生意。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 25,
+      exits: [
+        { direction: '西', targetId: 'stone_city_market', condition: undefined, isHidden: false, travelCost: 0 },
+        { direction: '东', targetId: 'stone_city_residential', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['li_fugui'],
+      isSafeZone: true,
+      details: [
+        { id: 'li_hall', name: '李府大厅', description: '李府的大厅，铺着名贵的地毯，墙上挂着各种字画。厅内摆放着不少古董和珍宝。', type: 'environment' },
+        { id: 'li_garden', name: '后花园', description: '李府的后花园，种满了各种灵草和奇花异草。据说李府的后花园是石城最美丽的地方。', type: 'environment' },
+        { id: 'li_treasury', name: '金库', description: '李府的金库，存放着大量的金银和灵石。据说李家的财富可以买下半个石城。', type: 'secret', hint: '探查金库...', requiredRealm: 3 },
+      ],
+    },
+    {
+      id: 'stone_city_xianglai_lou',
+      name: '香来楼',
+      description: '石城唯一的酒楼，虽然规模不大，但布置得十分雅致。楼内提供各种灵酒和美食，是石城修士们聚会的地方。',
+      terrain: TerrainType.PLAIN,
+      spiritDensity: 20,
+      exits: [
+        { direction: '东', targetId: 'stone_city_plaza', condition: undefined, isHidden: false, travelCost: 0 },
+      ],
+      monsters: [],
+      resources: [],
+      npcs: ['xiang_lao'],
+      isSafeZone: true,
+      details: [
+        { id: 'xiang_hall', name: '酒楼大厅', description: '香来楼的一楼大厅，摆放着几张桌椅。虽然简朴，但干净整洁。空气中弥漫着酒菜的香气。', type: 'environment' },
+        { id: 'xiang_kitchen', name: '后厨', description: '酒楼的后厨，传来炒菜的声音。厨子正在忙碌，准备着各种美食。', type: 'environment' },
+        { id: 'xiang_room', name: '雅间', description: '酒楼二楼有两间雅间，是接待贵客的地方。雅间内可以俯瞰石城的景色。', type: 'lore' },
+      ],
+    },
+  ]
+};
+
+ZoneBlueprintDB.register(StoneCityBlueprint);

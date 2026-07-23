@@ -1,0 +1,96 @@
+:root {
+  /* 墨色 */
+  --ink-0: #07060a;
+  --ink-1: #0d0c11;
+  --ink-2: #14121a;
+  --ink-3: #1c1922;
+  --ink-4: #25222c;
+  --ink-5: #302c38;
+
+  /* 宣纸 */
+  --paper-0: #ebe1c7;
+  --paper-1: #d8c89c;
+  --paper-2: #c0ad7c;
+  --paper-3: #97885f;
+  --paper-4: #6b6247;
+  --paper-5: #4a4233;
+
+  /* 描金 */
+  --gold-1: #f3d27a;
+  --gold-2: #d4a858;
+  --gold-3: #a4803b;
+  --gold-4: #6e5524;
+  --gold-soft: rgba(212, 168, 88, 0.18);
+  --gold-line: rgba(212, 168, 88, 0.32);
+
+  /* 元素色 */
+  --crimson: #c54a4a;
+  --crimson-soft: rgba(197, 74, 74, 0.18);
+  --jade: #5a996a;
+  --jade-soft: rgba(90, 153, 106, 0.18);
+  --azure: #5a99b8;
+  --azure-soft: rgba(90, 153, 106, 0.18);
+  --violet: #9a7ab8;
+  --violet-soft: rgba(154, 122, 184, 0.18);
+
+  /* 描边/分隔 */
+  --line-1: rgba(212, 168, 88, 0.18);
+  --line-2: rgba(212, 168, 88, 0.32);
+  --line-3: rgba(212, 168, 88, 0.55);
+
+  /* 玻璃质感 */
+  --glass-1: rgba(20, 18, 26, 0.72);
+  --glass-2: rgba(28, 25, 34, 0.78);
+  --glass-3: rgba(37, 34, 44, 0.84);
+
+  /* 字体 */
+  --font-serif: 'Noto Serif CJK SC', 'Source Han Serif SC', 'STSong', 'SimSun', serif;
+  --font-sans: 'Noto Sans CJK SC', 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-deco: 'STKaiti', 'KaiTi', 'Noto Serif CJK SC', serif;
+
+  /* 字号 */
+  --text-2xs: 0.65rem;
+  --text-xs: 0.74rem;
+  --text-sm: 0.83rem;
+  --text-base: 0.92rem;
+  --text-md: 1.05rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.55rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.7rem;
+  --text-4xl: 3.6rem;
+
+  /* 间距 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* 圆角 */
+  --r-1: 3px;
+  --r-2: 6px;
+  --r-3: 10px;
+  --r-4: 14px;
+  --r-5: 20px;
+
+  /* 阴影 */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 6px 18px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 18px 50px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 0 22px rgba(212, 168, 88, 0.15);
+
+  /* 过渡 */
+  --t-fast: 0.15s ease;
+  --t-normal: 0.25s ease;
+  --t-slow: 0.5s ease;
+
+  /* 布局尺寸 */
+  --topbar-h: 72px;
+  --actionbar-h: 64px;
+  --col-w: 280px;
+  --center-max-w: 720px;
+}

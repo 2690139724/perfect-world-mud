@@ -1,0 +1,48 @@
+/**
+ * 主样式入口 - 水墨仙侠风
+ * 重新设计的层次：
+ * 1. base - 设计变量、重置、工具类
+ * 2. components - 通用组件
+ * 3. layout - 整体布局结构
+ * 4. menu - 主菜单与角色创建
+ * 5. game - 游戏主界面
+ * 6. feature - 功能弹窗
+ */
+
+@import './base/variables.css';
+@import './base/reset.css';
+@import './base/utilities.css';
+@import './base/animations.css';
+
+@import './components/buttons.css';
+@import './components/cards.css';
+@import './components/bars.css';
+@import './components/icons.css';
+@import './components/modal.css';
+@import './components/toast.css';
+@import './components/growth-feedback.css';
+@import './components/tutorial.css';
+@import './components/minimap.css';
+@import './components/world-map.css';
+@import './components/world-event.css';
+@import './components/goal-tracker.css';
+@import './components/rumor-board.css';
+@import './components/status-monitor.css';
+
+@import './layout/layout.css';
+
+@import './menu/menu.css';
+@import './menu/creation.css';
+
+@import './game/topbar.css';
+@import './game/grid.css';
+@import './game/left-col.css';
+@import './game/center-col.css';
+@import './game/right-col.css';
+@import './game/actionbar.css';
+
+@import './feature/window.css';
+@import './feature/inventory.css';
+@import './feature/panel.css';
+
+@import './panels/talent-panel.css';

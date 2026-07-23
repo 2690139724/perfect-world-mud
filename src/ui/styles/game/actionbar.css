@@ -1,0 +1,148 @@
+/* ============== 底部操作栏 ============== */
+.game-actionbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: 0 var(--sp-5);
+  background: var(--glass-2);
+  border-top: 1px solid var(--line-1);
+  position: relative;
+  z-index: 5;
+}
+
+.game-actionbar::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-2) 50%, transparent 100%);
+  opacity: 0.5;
+}
+
+.action-group {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+}
+
+.action-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  min-width: 96px;
+  font-family: var(--font-deco);
+  font-size: var(--text-sm);
+  color: var(--paper-2);
+  letter-spacing: 0.2em;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-2);
+  transition: all var(--t-fast);
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--gold-2), transparent);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+
+.action-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, var(--gold-soft) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+  z-index: -1;
+}
+
+.action-btn-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: var(--text-md);
+  color: var(--gold-2);
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-1);
+  letter-spacing: 0;
+  transition: all var(--t-fast);
+}
+
+.action-btn-text {
+  display: inline-block;
+  letter-spacing: 0.2em;
+}
+
+.action-btn:hover {
+  color: var(--gold-1);
+  background: var(--gold-soft);
+  border-color: var(--line-2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:hover::before,
+.action-btn:hover::after {
+  opacity: 1;
+}
+
+.action-btn:hover .action-btn-glyph {
+  color: var(--gold-1);
+  background: rgba(212, 168, 88, 0.2);
+  box-shadow: 0 0 8px rgba(212, 168, 88, 0.4);
+  transform: scale(1.05);
+}
+
+.action-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.action-btn:active .action-btn-glyph {
+  transform: scale(0.95);
+}
+
+.action-btn:focus-visible {
+  outline: none;
+  border-color: var(--gold-2);
+  box-shadow: 0 0 0 2px rgba(212, 168, 88, 0.2);
+}
+
+@media (max-width: 640px) {
+  .game-actionbar {
+    padding: var(--sp-2) var(--sp-3);
+    gap: var(--sp-2);
+  }
+  .action-group {
+    flex: 1;
+  }
+  .action-btn {
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sp-2) var(--sp-1);
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    min-width: 0;
+  }
+  .action-btn-glyph {
+    width: 20px;
+    height: 20px;
+    font-size: var(--text-sm);
+  }
+  .action-btn-text {
+    letter-spacing: 0.1em;
+  }
+}

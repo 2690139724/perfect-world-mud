@@ -1,0 +1,155 @@
+/* ============== ModalManager 弹窗 ============== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  animation: fade-in-soft 0.25s ease;
+}
+
+.modal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--modal-width, clamp(420px, 70vw, 720px));
+  max-height: var(--modal-height, clamp(360px, 80vh, 680px));
+  background: var(--glass-3);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3), 0 0 40px rgba(212, 175, 55, 0.08);
+  overflow: hidden;
+  animation: scale-in 0.3s ease;
+}
+
+.modal-card::before,
+.modal-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--gold-2);
+  pointer-events: none;
+}
+
+.modal-card::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+}
+
+.modal-card::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-4) var(--sp-5);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 100%);
+  border-bottom: 1px solid var(--line-1);
+}
+
+.modal-header span {
+  font-family: var(--font-deco);
+  font-size: var(--text-md);
+  color: var(--gold-1);
+  letter-spacing: 0.3em;
+  font-weight: normal;
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: var(--text-lg);
+  color: var(--paper-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-1);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.modal-close:hover {
+  color: var(--crimson);
+  border-color: var(--crimson-soft);
+  background: var(--crimson-soft);
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-5);
+  color: var(--paper-1);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  user-select: text;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 3px;
+}
+
+.modal-interactive-content {
+  width: 100%;
+}
+
+/* 弹窗内通用元素样式 */
+.modal-body .modal-empty {
+  text-align: center;
+  color: var(--paper-3);
+  padding: var(--sp-5);
+  font-size: var(--text-sm);
+}
+
+.modal-body .modal-btn {
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--text-sm);
+  font-family: var(--font-deco);
+  color: var(--gold-1);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold-3);
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  letter-spacing: 0.1em;
+}
+
+.modal-body .modal-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-2);
+  color: var(--gold-1);
+}
+
+.modal-body .modal-btn-primary {
+  color: var(--ink-0);
+  background: linear-gradient(135deg, var(--gold-2), var(--gold-1));
+  border-color: var(--gold-1);
+}
+
+.modal-body .modal-btn-primary:hover {
+  background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+  box-shadow: 0 0 12px rgba(212, 168, 88, 0.35);
+}
+
+.modal-body .modal-btn-disabled,
+.modal-body .modal-btn:disabled {
+  color: var(--paper-4);
+  background: rgba(20, 16, 12, 0.3);
+  border-color: var(--line-1);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
