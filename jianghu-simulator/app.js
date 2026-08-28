@@ -119,10 +119,10 @@ App.renderCreation1 = function(){
   const inner = `
     ${small('作者：雾见川','muted')}
     ${div()}
-    ${row('<b class="gold">姓名</b> <input id="f_name" value="${esc(c.name)}" placeholder="可带字、号" maxlength="12">','pink')}
+    ${row(`<b class="gold">姓名</b> <input id="f_name" value="${esc(c.name)}" placeholder="可带字、号" maxlength="12">`,'pink')}
     ${row(`<b class="gold">性别</b> <select id="f_gender">${JH.GENDER_OPTIONS.map(g=>`<option ${c.gender===g?'selected':''}>${g}</option>`).join('')}</select> <span class="muted small">全性向，你说了算</span>`,'pink')}
-    ${row('<b class="gold">年龄</b> <input id="f_age" type="number" value="'+c.age+'" min="12" max="60" style="width:5em">','pink')}
-    ${row('<b class="gold">相貌</b> <input id="f_app" value="'+esc(c.appearance)+'" placeholder="文字描述，AI 记入魅力与外貌" style="width:14em">','pink')}
+    ${row(`<b class="gold">年龄</b> <input id="f_age" type="number" value="${c.age}" min="12" max="60" style="width:5em">`,'pink')}
+    ${row(`<b class="gold">相貌</b> <input id="f_app" value="${esc(c.appearance)}" placeholder="文字描述，AI 记入魅力与外貌" style="width:14em">`,'pink')}
     ${div()}
     ${row('<b class="gold">出身（十二选一）</b>','gold')}
     ${bgRows}
