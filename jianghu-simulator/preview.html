@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>江湖模拟器 · 界面预览</title><style>/* ===== 江湖模拟器 · 玄黑/朱砂/鎏金 三色界面 ===== */
+:root{
+  --black:#000000;          /* 玄黑底 */
+  --red:#E63946;            /* 朱砂红 边/标题条 */
+  --gold:#D4AF37;           /* 鎏金 分隔线 */
+  --pink:#FFB3B3;           /* 米红 正文 */
+  --dark:#C05A5A;           /* 暗红 次要 */
+  --bar:#3D1A1A;            /* 深黑红 进度条剩余 */
+  --blood:#2A0000;          /* 血黑 危机 */
+  --bg:#0a0a0a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--pink);
+  font-family:"Noto Serif SC","Songti SC","SimSun",serif;line-height:1.7;
+  -webkit-font-smoothing:antialiased;}
+body{background:
+  radial-gradient(circle at 50% -10%, #1a0606 0%, #0a0a0a 60%) fixed;
+  min-height:100vh;}
+
+#app{max-width:760px;margin:0 auto;display:flex;flex-direction:column;min-height:100vh;}
+
+/* 顶栏 */
+.topbar{display:flex;align-items:center;gap:.8em;padding:.6em .9em;
+  background:linear-gradient(180deg,#1a0000,#000);
+  border-bottom:2px solid var(--red);position:sticky;top:0;z-index:20;}
+.brand{font-weight:700;color:var(--gold);font-size:1.05em;letter-spacing:.1em;}
+.author{color:var(--dark);font-size:.72em;}
+.turn{margin-left:auto;color:var(--pink);font-size:.78em;}
+
+/* 舞台 */
+.stage{flex:1;padding:.7em;overflow-y:auto;}
+.stage::-webkit-scrollbar{width:6px}
+.stage::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+/* ===== 面板 (复刻 \fcolorbox 玄黑底+朱砂红边) ===== */
+.panel{
+  background:var(--black);
+  border:2px solid var(--red);
+  border-radius:4px;
+  padding:.7em .85em .55em;
+  margin:.55em 0;
+  box-shadow:0 0 0 1px #2a0000 inset, 0 4px 18px rgba(230,57,70,.08);
+}
+.panel+.panel{margin-top:.5em}
+.panel-crisis{border-color:#7a0000;background:#150000;}
+
+/* 标题条 (红底黑字) */
+.ptitle{
+  display:inline-block;background:var(--red);color:#000;
+  font-weight:700;font-size:1.08em;letter-spacing:.08em;
+  padding:.12em .9em;border-radius:2px;margin-bottom:.5em;
+}
+/* 金色分隔线 */
+.pdiv{border:none;border-top:1px solid var(--gold);
+  margin:.5em 0;opacity:.85;height:0;position:relative;}
+.pdiv::after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);
+  width:7px;height:7px;background:var(--gold);transform:translateX(-50%) rotate(45deg);}
+
+/* 行 */
+.row{display:block;margin:.18em 0;}
+.muted{color:var(--dark);}
+.gold{color:var(--gold);}
+.red{color:var(--red);}
+.pink{color:var(--pink);}
+.small{font-size:.78em;}
+.tiny{font-size:.7em;}
+
+/* 进度条 */
+.bar{display:inline-flex;vertical-align:middle;height:9px;border:1px solid #3a0d0d;border-radius:2px;overflow:hidden;background:var(--bar);}
+.bar>i{display:block;height:100%;background:var(--red);}
+.bar.neili>i{background:var(--gold);}
+.bar.tili>i{background:#9ad28a;}
+.bar.aff>i{background:var(--red);}
+
+/* 属性网格 */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.1em .9em;}
+.stats .row{margin:0;}
+
+/* 选项 */
+.opts{margin:.3em 0 .1em;}
+.opt{display:flex;align-items:flex-start;gap:.5em;padding:.32em .4em;cursor:pointer;
+  border:1px solid transparent;border-radius:3px;transition:.12s;}
+.opt:hover,.opt:focus{background:#1a0606;border-color:#5a0000;outline:none;}
+.opt .tag{color:var(--red);font-weight:700;flex-shrink:0;}
+.opt .txt{color:var(--pink);}
+.opt .hint{color:var(--dark);font-size:.76em;}
+
+/* 指令行 */
+.cmdline{color:var(--dark);font-size:.74em;margin-top:.4em;text-align:center;letter-spacing:.05em;}
+.cmdline b{color:var(--gold);font-weight:400;}
+
+/* 时间行 / 剧情文本 */
+.tline{color:var(--gold);font-size:.82em;margin:.1em 0 .35em;letter-spacing:.06em;}
+.prose{color:var(--pink);margin:.2em 0 .4em;font-size:.96em;}
+.prose .hl{color:var(--red);font-weight:600;}
+
+/* 日志气泡 */
+.log{margin:.4em 0;padding:.45em .6em;background:#0d0d0d;border-left:2px solid var(--dark);
+  border-radius:0 3px 3px 0;font-size:.85em;}
+.log.sys{border-left-color:var(--gold);color:var(--gold);}
+.log.good{border-left-color:#5a8a3a;color:#bfe39a;}
+.log.bad{border-left-color:var(--red);color:#ff9a9a;}
+
+/* 输入栏 */
+.inputbar{position:sticky;bottom:0;background:linear-gradient(180deg,#000,#140000);
+  border-top:2px solid var(--red);padding:.45em .6em .6em;z-index:20;}
+.quick{display:flex;flex-wrap:wrap;gap:.3em;margin-bottom:.4em;}
+.quick button{background:#1a0000;border:1px solid #4a0000;color:var(--pink);
+  font-size:.72em;padding:.22em .55em;border-radius:3px;cursor:pointer;font-family:inherit;}
+.quick button:hover{background:var(--red);color:#000;}
+.inputrow{display:flex;gap:.4em;}
+#cmdInput{flex:1;background:#000;border:1px solid #4a0000;color:var(--pink);
+  padding:.55em .7em;border-radius:3px;font-size:.92em;font-family:inherit;outline:none;}
+#cmdInput:focus{border-color:var(--red);}
+#sendBtn{background:var(--red);color:#000;border:none;font-weight:700;
+  padding:0 1.1em;border-radius:3px;cursor:pointer;font-family:inherit;font-size:.92em;}
+
+/* 战斗面板 */
+.combat-row{display:grid;grid-template-columns:1fr 1fr;gap:.6em;}
+.combat-side{background:#0d0000;border:1px solid #3a0000;border-radius:3px;padding:.4em .55em;}
+
+/* 好感面板人物行 */
+.aff-row{display:flex;align-items:center;gap:.5em;margin:.18em 0;}
+.aff-row .name{min-width:5.2em;}
+.aff-row .stage{font-size:.74em;color:var(--dark);}
+
+/* 弹层 */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:50;
+  display:flex;align-items:center;justify-content:center;padding:1em;}
+.overlay.hidden{display:none;}
+.overlay .panel{max-width:520px;width:100%;max-height:84vh;overflow-y:auto;}
+.overlay-close{display:block;margin:.6em auto 0;background:var(--red);color:#000;border:none;
+  font-weight:700;padding:.4em 1.4em;border-radius:3px;cursor:pointer;font-family:inherit;}
+
+/* 标签 */
+.tag-pill{display:inline-block;background:#1a0000;border:1px solid #4a0000;color:var(--gold);
+  font-size:.7em;padding:.05em .5em;border-radius:8px;margin:0 .2em .2em 0;}
+
+/* 创角表单 */
+.form-row{display:flex;align-items:center;gap:.6em;margin:.3em 0;flex-wrap:wrap;}
+.form-row label{color:var(--gold);min-width:4em;font-size:.86em;}
+.form-row input,.form-row select{background:#000;border:1px solid #4a0000;color:var(--pink);
+  padding:.4em .5em;border-radius:2px;font-family:inherit;font-size:.88em;outline:none;flex:1;min-width:120px;}
+.form-row input:focus,.form-row select:focus{border-color:var(--red);}
+.alloc{display:grid;grid-template-columns:auto 1fr 2.5em auto;gap:.5em .7em;align-items:center;margin:.3em 0;}
+.alloc label{color:var(--pink);font-size:.84em;}
+.alloc input[type=range]{accent-color:var(--red);}
+.alloc .val{color:var(--gold);text-align:center;font-weight:700;}
+.alloc .mod{color:var(--dark);font-size:.74em;min-width:3.5em;}
+.totalbar{color:var(--gold);font-size:.82em;margin:.3em 0;text-align:center;}
+.totalbar.warn{color:var(--red);}
+.pointbox{color:var(--gold);}
+.btn{background:var(--red);color:#000;border:none;font-weight:700;
+  padding:.5em 1.2em;border-radius:3px;cursor:pointer;font-family:inherit;margin:.2em;}
+.btn.ghost{background:#1a0000;color:var(--pink);border:1px solid #4a0000;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr;}
+  .topbar .author{display:none;}
+  .combat-row{grid-template-columns:1fr;}
+}
+
+.stage{max-width:760px;margin:0 auto;padding:.7em}
+.inputbar,.topbar{display:none}</style></head><body style="background:#0a0a0a"><h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">① 标题界面</h2><div class="stage"><div class="panel"><div class="ptitle">江湖模拟器 · 大昭风云录</div>
+    <div class="row gold"><span class="gold">大昭景和三年 · 春</span></div>
+    <hr class="pdiv">
+    <div class="row pink">江湖风云起，武林盟主病逝，群龙无首；朝廷颁下「靖武令」清点武林，朝野暗流汹涌。</div>
+    <div class="row pink">你，即将踏入这片江湖。</div>
+    <hr class="pdiv">
+    <div class="row muted small">全性向 · 高自由度武侠养成 · 可攻略角色不分性别</div>
+    <div class="row muted small">作者：雾见川</div>
+    <hr class="pdiv">
+    <div class="opts">
+      <div class="opt" data-act="new"><span class="tag">【A】</span><span class="txt">创建新角色，踏入江湖</span></div>
+      <div class="opt" data-act="load"><span class="tag">【B】</span><span class="txt">读取存档（暂无存档）</span></div>
+    </div>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">② 创角第一面（选出身）</h2><div class="stage"><div class="panel"><div class="ptitle">江湖创角 · 第一面</div>
+    <div class="row muted small">作者：雾见川</div>
+    <hr class="pdiv">
+    <div class="row pink"><b class="gold">姓名</b> <input id="f_name" value="${esc(c.name)}" placeholder="可带字、号" maxlength="12"></div>
+    <div class="row pink"><b class="gold">性别</b> <select id="f_gender"><option selected>男</option><option >女</option><option >自定义</option></select> <span class="muted small">全性向，你说了算</span></div>
+    <div class="row pink"><b class="gold">年龄</b> <input id="f_age" type="number" value="18" min="12" max="60" style="width:5em"></div>
+    <div class="row pink"><b class="gold">相貌</b> <input id="f_app" value="" placeholder="文字描述，AI 记入魅力与外貌" style="width:14em"></div>
+    <hr class="pdiv">
+    <div class="row gold"><b class="gold">出身（十二选一）</b></div>
+    <div class="opt" data-bg="A"><span class="tag">【A】</span><span class="txt">名门世家 <span class="hint muted"> 世家子弟，锦衣玉食，家族眼线密布天下。</span></span></div><div class="opt" data-bg="B"><span class="tag">【B】</span><span class="txt">武学世家 <span class="hint muted"> 世代习武之家，背负光大门楣之望，自幼耳濡目染。</span></span></div><div class="opt" data-bg="C"><span class="tag">【C】</span><span class="txt">寒门书生 <span class="hint muted"> 寒窗苦读，胸有丘壑而手无缚鸡之力，可走科举之途。</span></span></div><div class="opt" data-bg="D"><span class="tag">【D】</span><span class="txt">市井孤儿 <span class="hint muted"> 自幼浪迹市井，三教九流皆识，自由自在惯了。</span></span></div><div class="opt" data-bg="E"><span class="tag">【E】</span><span class="txt">镖局之后 <span class="hint muted"> 镖局子弟，见多识广，路引齐全，江湖路熟。</span></span></div><div class="opt" data-bg="F"><span class="tag">【F】</span><span class="txt">医家传人 <span class="hint muted"> 医家子弟，怀《百草经》，救人可得人情声望。</span></span></div><div class="opt" data-bg="G"><span class="tag">【G】</span><span class="txt">官宦子弟 <span class="hint muted"> 官宦之后，识朝堂门路，然江湖人见之提防。</span></span></div><div class="opt" data-bg="H"><span class="tag">【H】</span><span class="txt">边关遗孤 <span class="hint muted"> 边关烽火中幸存，意志坚韧，与朝廷马匪皆有纠葛。</span></span></div><div class="opt" data-bg="I"><span class="tag">【I】</span><span class="txt">江湖艺人 <span class="hint muted"> 走江湖卖艺，口才了得，消息灵通。</span></span></div><div class="opt" data-bg="J"><span class="tag">【J】</span><span class="txt">魔教遗孤 <span class="hint muted"> 魔教余孽之后，身怀幽冥心法，印记暗藏，身世凶险。</span></span></div><div class="opt" data-bg="K"><span class="tag">【K】</span><span class="txt">隐世高人之后 <span class="hint muted"> 隐世高人后裔，根基扎实而通世故甚少。</span></span></div><div class="opt" data-bg="L"><span class="tag">【L】</span><span class="txt">前朝皇族遗脉 <span class="hint muted"> 前朝遗脉（稀有），身怀信物，一旦暴露则朝野皆欲得之。</span></span></div>
+    <hr class="pdiv">
+    <div class="row muted"><span class="muted small">已选：未选</span></div>
+    <button class="btn" id="goStep2" disabled>下一步：分配属性</button>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">③ 创角第二面（属性/天赋）</h2><div class="stage"><div class="panel"><div class="ptitle">江湖创角 · 第二面</div>
+    <hr class="pdiv">
+    <div class="row gold"><b class="gold">六维属性 · 共 60 点自由分配（单项 1~20，修正后封顶20）</b></div>
+    <div class="alloc">
+      <label>根骨</label>
+      <input type="range" min="1" max="20" value="10" data-stat="根骨">
+      <span class="val" id="v_根骨">10</span>
+      <span class="mod"><span class="red small">+2</span></span>
+    </div><div class="alloc">
+      <label>悟性</label>
+      <input type="range" min="1" max="20" value="10" data-stat="悟性">
+      <span class="val" id="v_悟性">10</span>
+      <span class="mod"><span class="muted small">±0</span></span>
+    </div><div class="alloc">
+      <label>身法</label>
+      <input type="range" min="1" max="20" value="10" data-stat="身法">
+      <span class="val" id="v_身法">10</span>
+      <span class="mod"><span class="muted small">±0</span></span>
+    </div><div class="alloc">
+      <label>臂力</label>
+      <input type="range" min="1" max="20" value="10" data-stat="臂力">
+      <span class="val" id="v_臂力">10</span>
+      <span class="mod"><span class="red small">+1</span></span>
+    </div><div class="alloc">
+      <label>魅力</label>
+      <input type="range" min="1" max="20" value="10" data-stat="魅力">
+      <span class="val" id="v_魅力">10</span>
+      <span class="mod"><span class="muted small">±0</span></span>
+    </div><div class="alloc">
+      <label>气运</label>
+      <input type="range" min="1" max="20" value="10" data-stat="气运">
+      <span class="val" id="v_气运">10</span>
+      <span class="mod"><span class="muted small">±0</span></span>
+    </div>
+    <div class="totalbar">已分配 <span class="pointbox" id="totalPts">60</span> / 60 <span class="pink small">✓</span></div>
+    <hr class="pdiv">
+    <div class="row gold"><b class="gold">天赋（选 1 主天赋）</b></div>
+    <div class="opt" data-talent="天生神力"><span class="tag">[　]</span><span class="txt">天生神力 <span class="hint muted">天生神力，臂力+5</span></span></div><div class="opt" data-talent="过目不忘"><span class="tag">[　]</span><span class="txt">过目不忘 <span class="hint muted">过目不忘，悟性+15，记忆八分</span></span></div><div class="opt" data-talent="身轻如燕"><span class="tag">[　]</span><span class="txt">身轻如燕 <span class="hint muted">身轻如燕，身法+15</span></span></div><div class="opt" data-talent="医武双修"><span class="tag">[　]</span><span class="txt">医武双修 <span class="hint muted">医武双修，制药效率+50%（需医家/魔教）</span></span></div><div class="opt" data-talent="巧舌如簧"><span class="tag">[　]</span><span class="txt">巧舌如簧 <span class="hint muted">巧舌如簧，魅力+15</span></span></div><div class="opt" data-talent="气运加身"><span class="tag">[　]</span><span class="txt">气运加身 <span class="hint muted">气运加身，气运+15</span></span></div><div class="opt" data-talent="百毒不侵"><span class="tag">[　]</span><span class="txt">百毒不侵 <span class="hint muted">百毒不侵，所受毒伤减半（需医家/魔教）</span></span></div><div class="opt" data-talent="心有灵犀"><span class="tag">[　]</span><span class="txt">心有灵犀 <span class="hint muted">心有灵犀，好感获取+20%</span></span></div><div class="opt" data-talent="剑心通明"><span class="tag">[✓]</span><span class="txt">剑心通明 <span class="hint muted">剑心通明，剑修效率+50%</span></span></div><div class="opt" data-talent="力拔山兮"><span class="tag">[　]</span><span class="txt">力拔山兮（稀有） <span class="hint muted">力拔山兮（稀有），臂力+8 悟性-2</span></span></div>
+    <div class="row"><span class="muted small">未掷气运</span> <button class="btn ghost" id="rollLuck" >掷气运(1d100≥90可加副天赋)</button></div>
+    <hr class="pdiv">
+    <div class="row pink small"><b class="gold">初始物品</b>：旧布衣、干粮×3、水囊、火折子, 旧布衣、精铁剑</div>
+    <div class="row pink small"><b class="gold">起始银两</b>：0 两</div>
+    <hr class="pdiv">
+    <button class="btn" id="confirmCreate">踏入江湖</button>
+    <button class="btn ghost" id="backStep1">返回</button>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">④ 入江湖（主界面+状态卡+开局）</h2><div class="stage"><div class="panel"><div class="ptitle">大昭江湖 · 主界面</div>
+    <div class="row gold"><span class="gold">景和三年 · 春 · 正月1日 · 巳时 · 晴</span></div>
+    <hr class="pdiv">
+    <div class="row pink">姓名 沈惊鸿 · 男 · 18岁 · 出身 武学世家</div>
+    <div class="row pink">境界 <span class="gold">不入流</span> · 门派 无 · 官阶 白身</div>
+    <div class="row pink">所在 <span class="red">泉州</span> · 时辰 巳时 · 天气 晴</div>
+    <div class="row muted small">主线：闻听武当山将开山门收徒，限期三月。</div>
+    <hr class="pdiv">
+    <div class="row gold"><b class="gold">行动选项</b></div>
+    <div class="opt" data-act-name="前往「客栈」"><span class="tag">【A】</span><span class="txt">前往「客栈」</span></div><div class="opt" data-act-name="前往「市集」"><span class="tag">【B】</span><span class="txt">前往「市集」</span></div><div class="opt" data-act-name="前往「医馆」"><span class="tag">【C】</span><span class="txt">前往「医馆」</span></div><div class="opt" data-act-name="四处游历(打听消息)"><span class="tag">【D】</span><span class="txt">四处游历(打听消息)</span></div><div class="opt" data-act-name="打坐运功"><span class="tag">【E】</span><span class="txt">打坐运功</span></div><div class="opt" data-act-name="修炼武学"><span class="tag">【F】</span><span class="txt">修炼武学</span></div><div class="hint muted small">也可在下方输入框自由输入你的行动…</div>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b> · <b>修炼</b> · <b>打坐</b> · <b>查看</b> · <b>商店</b></div>
+  </div><div class="panel"><div class="ptitle">状态卡</div>
+    <div class="row gold"><b class="gold">状态卡 · 第 1 回合</b></div>
+    <hr class="pdiv">
+    <div class="row pink">姓名 沈惊鸿 · 男 · 18岁 · 出身 武学世家</div>
+    <div class="row pink">境界 不入流 · 门派 无 · 官阶 白身</div>
+    <div class="row pink">根骨 12  悟性 10  身法 10  臂力 11  魅力 10  气运 10</div>
+    <div class="row pink">内力 <span class="bar neili"><i style="width:100%"></i></span> <span class="small pink">20/20</span>  体力 <span class="bar tili"><i style="width:100%"></i></span> <span class="small pink">100/100</span></div>
+    <div class="row pink">气血 <span class="bar "><i style="width:100%"></i></span> <span class="small pink">100/100</span>  饱食 80/100</div>
+    <div class="row pink">银两 0两 · 声望 0 · 善恶 中立(0)</div>
+    <div class="row pink">所在地 泉州 · 时辰 巳时 · 天气 晴</div>
+    
+    
+    
+    <div class="row muted small">主线提示：闻听武当山将开山门收徒，限期三月。</div>
+    <hr class="pdiv">
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div><div class="panel"><div class="ptitle">江湖初临</div><div class="row gold"><span class="gold">开局 · 边关风沙</span></div><hr class="pdiv"><div class="row pink">你持一张路引过关，守将却皱眉——这路引的印章，是假的。</div><hr class="pdiv"><div class="row muted"><span class="muted small">在下方输入你的行动，或选择主界面行动。</span></div><div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div></div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">⑤ 随机事件面板（样例）</h2><div class="stage"><div class="panel"><div class="ptitle">江湖事件</div>
+    <div class="row gold"><span class="red">奇遇 · 市集小偷</span></div>
+    <div class="row pink">市集人潮中，一只贼手伸向身旁老妇的钱袋。</div>
+    <div class="opts"><div class="opt" data-ev-opt="0"><span class="tag">【A】</span><span class="txt">抓贼(身法判定)</span></div><div class="opt" data-ev-opt="1"><span class="tag">【B】</span><span class="txt">喝止</span></div><div class="opt" data-ev-opt="2"><span class="tag">【C】</span><span class="txt">佯装未见</span></div></div>
+    <div class="row muted small">输入你的应对之策亦可</div>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">⑥ 战斗面板（样例）</h2><div class="stage"><div class="panel"><div class="ptitle">大昭江湖 · 主界面</div>
+    <div class="row gold"><span class="gold">景和三年 · 春 · 正月1日 · 巳时 · 晴</span></div>
+    <hr class="pdiv">
+    <div class="row pink">姓名 沈惊鸿 · 男 · 18岁 · 出身 武学世家</div>
+    <div class="row pink">境界 <span class="gold">不入流</span> · 门派 无 · 官阶 白身</div>
+    <div class="row pink">所在 <span class="red">泉州</span> · 时辰 巳时 · 天气 晴</div>
+    <div class="row muted small">主线：闻听武当山将开山门收徒，限期三月。</div>
+    <hr class="pdiv">
+    <div class="row gold"><b class="gold">行动选项</b></div>
+    <div class="opt" data-act-name="前往「客栈」"><span class="tag">【A】</span><span class="txt">前往「客栈」</span></div><div class="opt" data-act-name="前往「市集」"><span class="tag">【B】</span><span class="txt">前往「市集」</span></div><div class="opt" data-act-name="前往「医馆」"><span class="tag">【C】</span><span class="txt">前往「医馆」</span></div><div class="opt" data-act-name="四处游历(打听消息)"><span class="tag">【D】</span><span class="txt">四处游历(打听消息)</span></div><div class="opt" data-act-name="打坐运功"><span class="tag">【E】</span><span class="txt">打坐运功</span></div><div class="opt" data-act-name="修炼武学"><span class="tag">【F】</span><span class="txt">修炼武学</span></div><div class="hint muted small">也可在下方输入框自由输入你的行动…</div>
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b> · <b>修炼</b> · <b>打坐</b> · <b>查看</b> · <b>商店</b></div>
+  </div><div class="panel"><div class="ptitle">状态卡</div>
+    <div class="row gold"><b class="gold">状态卡 · 第 1 回合</b></div>
+    <hr class="pdiv">
+    <div class="row pink">姓名 沈惊鸿 · 男 · 18岁 · 出身 武学世家</div>
+    <div class="row pink">境界 不入流 · 门派 无 · 官阶 白身</div>
+    <div class="row pink">根骨 12  悟性 10  身法 10  臂力 11  魅力 10  气运 10</div>
+    <div class="row pink">内力 <span class="bar neili"><i style="width:100%"></i></span> <span class="small pink">20/20</span>  体力 <span class="bar tili"><i style="width:100%"></i></span> <span class="small pink">100/100</span></div>
+    <div class="row pink">气血 <span class="bar "><i style="width:100%"></i></span> <span class="small pink">100/100</span>  饱食 80/100</div>
+    <div class="row pink">银两 0两 · 声望 0 · 善恶 中立(0)</div>
+    <div class="row pink">所在地 泉州 · 时辰 巳时 · 天气 晴</div>
+    
+    
+    
+    <div class="row muted small">主线提示：闻听武当山将开山门收徒，限期三月。</div>
+    <hr class="pdiv">
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div>
+  </div><div class="panel"><div class="ptitle">江湖初临</div><div class="row gold"><span class="gold">开局 · 边关风沙</span></div><hr class="pdiv"><div class="row pink">你持一张路引过关，守将却皱眉——这路引的印章，是假的。</div><hr class="pdiv"><div class="row muted"><span class="muted small">在下方输入你的行动，或选择主界面行动。</span></div><div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b></div></div></div>
+<h2 style="color:#D4AF37;border-left:4px solid #E63946;padding-left:.6em;margin:1.2em 0 .3em">⑦ 好感面板（样例）</h2><div class="stage"><div class="panel"><div class="ptitle">好感面板</div>
+    <div class="aff-row">
+      <span class="name pink">顾青崖 <span class="muted tiny">(武当大师兄)</span></span>
+      <span class="bar aff"><i style="width:45%"></i></span>
+      <span class="stage">45·熟悉</span>
+    </div>
+    <hr class="pdiv">
+    <div class="row muted small">送礼提示：在背包/市集获物后，输入「送XX给YY」即可送礼</div>
+    <div class="row muted small">关系阶段：陌生→相识→熟悉→知己/暧昧→恋人→生死相托</div>
+    <hr class="pdiv">
+    <div class="cmdline"><b>面板</b> · <b>背包</b> · <b>地图</b> · <b>任务</b> · <b>对话</b> · <b>好感</b> · <b>存档</b> · <b>帮助</b> · <b>送礼</b> · <b>查看</b></div>
+  </div></div></body></html>

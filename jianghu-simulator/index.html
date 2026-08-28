@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>江湖模拟器 · 大昭风云录</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <span class="brand">江湖模拟器</span>
+    <span class="author">作者：雾见川</span>
+    <span class="turn" id="turnTag">大昭 · 景和三年</span>
+  </header>
+
+  <main id="stage" class="stage"></main>
+
+  <footer class="inputbar">
+    <div class="quick" id="quickBar"></div>
+    <div class="inputrow">
+      <input id="cmdInput" type="text" placeholder="输入指令或你的行动…（如：前往武当 / 送清茶给顾青崖 / 偷偷跟上那个黑衣人）" autocomplete="off" />
+      <button id="sendBtn">行动</button>
+    </div>
+  </footer>
+</div>
+
+<div id="overlay" class="overlay hidden"></div>
+
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
